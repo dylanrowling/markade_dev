@@ -6,7 +6,19 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        arcade: ['"Silkscreen"', 'monospace'],
+      },
+      colors: {
+        black: "#000000",
+        white: "#ffffff",
+        fuchsia: "#e91e63",        // Minnow primary
+        neon: "#00bcd4",           // Marlin primary
+        surface: "#1e1e1e",
+        bg: "#121212",
+      },
+    },
   },
   plugins: [],
 }
