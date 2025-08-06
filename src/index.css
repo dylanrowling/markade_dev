@@ -1,0 +1,6 @@
+/* Tailwind CSS layers for base, components, and utilities — Markade clean slate */
+/* --- Updated: 2025-08-06 --- */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
