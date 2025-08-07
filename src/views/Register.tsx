@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../services/firebase";
+import Button from "../components/Button";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -39,7 +40,11 @@ export default function Register() {
       navigate("/dashboard");
     } catch (err: any) {
       console.error("❌ Registration failed:", err.message);
-      setError(err.message);
+      if (err.code === "auth/email-already-in-use") {
+        setError("This email is already registered. Try logging in.");
+      } else {
+        setError("Registration failed. Please try again.");
+      }
     }
   };
 
@@ -71,11 +76,14 @@ export default function Register() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" className="bg-fuchsia-600 text-white p-2 rounded hover:bg-fuchsia-700">
+        <Button type="submit">
           Register
-        </button>
+        </Button>
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
+      <Button variant="tertiary" onClick={() => navigate("/login")}>
+        Back to Login
+      </Button>
     </div>
   );
 }
