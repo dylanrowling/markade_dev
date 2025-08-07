@@ -2,6 +2,7 @@
 
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { auth } from '../services/firebase';
 import Button from '../components/Button';
 import { useEffect, useState } from 'react';
@@ -47,19 +48,19 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="text-white min-h-screen bg-black flex flex-col items-center justify-center gap-4 text-2xl">
+    <div className="text-white min-h-screen bg-background flex flex-col items-center justify-center gap-4 text-2xl">
       <p className="font-market-header">Welcome to the Dashboard!</p>
       <div className="text-base text-left w-full max-w-md">
         {leagues.length > 0 ? (
           <ul className="space-y-2">
             {leagues.map((league) => (
               <li key={league.id} className="border border-white rounded p-2">
-                <a
-                  href={`/league/${league.id}`}
+                <Link
+                  to={`/league/${league.id}`}
                   className="text-pink-400 hover:underline font-arcade text-xl tracking-wide"
                 >
                   {league.title || league.leagueName || 'Unnamed League'}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

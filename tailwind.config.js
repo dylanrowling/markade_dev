@@ -15,10 +15,15 @@ module.exports = {
       colors: {
         black: "#000000",
         white: "#ffffff",
-        fuchsia: "#e91e63",        // Minnow primary
-        neon: "#00bcd4",           // Marlin primary
-        surface: "#1e1e1e",
-        bg: "#121212",
+        background: "#0d1117",       // Midnight/black hybrid for base
+        surface: "#1e1e1e",          // Dark surface contrast
+        text: "#ffffff",             // Default light text
+        profitGreen: "#00ff00",     // Terminal-style green
+        lossRed: "#ff3c3c",         // Terminal-style red
+        primary: "#ff6700",      // Primary in-game orange
+        neonBlue: "#00bfff",        // Neon triadic blue
+        neonPink: "#ff00bf",        // Neon triadic pink
+        neonLime: "#bfff00",        // Neon triadic lime
       },
     },
   },

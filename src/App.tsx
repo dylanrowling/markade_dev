@@ -11,35 +11,37 @@ import LeaguePage from './views/LeaguePage';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/create-league"
-        element={
-          <ProtectedRoute>
-            <CreateLeaguePage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/league/:leagueId"
-        element={
-          <ProtectedRoute>
-            <LeaguePage />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+    <div className="min-h-screen bg-background text-text font-market">
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/create-league"
+          element={
+            <ProtectedRoute>
+              <CreateLeaguePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/league/:leagueId"
+          element={
+            <ProtectedRoute>
+              <LeaguePage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </div>
   );
 }
 
