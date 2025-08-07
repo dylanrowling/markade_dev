@@ -16,21 +16,23 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    'px-4 py-2 rounded font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'px-4 py-2 rounded font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 border-2 border-white';
   const variantClasses: Record<string, string> = {
-    default1: 'font-market border border-white rounded px-4 py-2 text-base hover:bg-white hover:text-black',
-    default2: 'font-market-header border border-white rounded px-6 py-3 text-xl hover:bg-white hover:text-black',
-    arcade1: 'font-arcade border border-white rounded px-4 py-2 text-base hover:bg-white hover:text-black',
-    arcade2: 'font-arcade-header border border-white rounded px-6 py-3 text-xl hover:bg-white hover:text-black',
+    default1: 'font-market rounded px-4 py-2 text-base hover:bg-white hover:text-black',
+    default2: 'font-market-header rounded px-6 py-3 text-xl hover:bg-white hover:text-black',
+    arcade1: 'font-arcade rounded px-4 py-2 text-base hover:bg-white hover:text-black',
+    arcade2: 'font-arcade-header rounded px-6 py-3 text-xl hover:bg-white hover:text-black',
   };
 
   return (
-    <button
-      className={`${baseStyles} ${variantClasses[variant] || variantClasses.default1} ${className}`}
-      {...props}
-    >
-      {children}
-    </button>
+    <div className="inline-block p-[3px] border-2 border-white">
+      <button
+        className={`${baseStyles} ${variantClasses[variant] || variantClasses.default1} ${className}`}
+        {...props}
+      >
+        {children}
+      </button>
+    </div>
   );
 };
 
