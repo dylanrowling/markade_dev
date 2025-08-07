@@ -1,10 +1,19 @@
-// App.tsx — Main test screen for Tailwind validation [2025-08-06]
+// App.tsx — Handles routing for Markade views [2025-08-06]
+
+import { Routes, Route } from 'react-router-dom';
+import Landing from './views/Landing';
+import Login from './views/LoginTestView';
+import Register from './views/Register';
+import Dashboard from './views/Dashboard'; // placeholder if needed
+
 function App() {
   return (
-    <div className="min-h-screen bg-black text-white font-arcade flex flex-col items-center justify-center text-center">
-      <h1 className="text-3xl text-fuchsia">🎮 Markade</h1>
-      <p className="text-neon text-lg mt-2">Silkscreen is working!</p>
-    </div>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
   );
 }
 

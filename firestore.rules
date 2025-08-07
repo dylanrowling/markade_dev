@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Users: only they can read/write their own profile
+    match /users/{userId} {
+      allow read, write: if request.auth != null
+                        && request.auth.uid == userId;
+    }
+
+    // Leagues root
+    match /leagues/{leagueId} {
+      // Anyone can view metadata
+      allow read: if true;
+
+      // Create only by commissioner, with required fields
+      allow create: if request.auth != null
+                   && request.resource.data.commissionerId == request.auth.uid
+                   && request.resource.data.title is string
+                   && request.resource.data.slug  is string
+                   && request.resource.data.members is list
+                   && request.resource.data.members.size() >= 1
+                   && request.resource.data.createdAt == request.time
+                   && request.resource.data.updatedAt == request.time;
+
+      // Update/Delete only by commissioner
+      allow update, delete: if request.auth != null
+                          && request.auth.uid == resource.data.commissionerId;
+    }
+
+    // Matchups subcollection
+    match /leagues/{leagueId}/matchups/{matchupId} {
+      allow read: if request.auth != null
+                 && request.auth.uid in get(/databases/$(database)/documents/leagues/$(leagueId)).data.members;
+      allow write: if false;  // force writes through Cloud Functions
+    }
+
+    // Teams subcollection
+    match /leagues/{leagueId}/teams/{teamId} {
+      allow read: if request.auth != null
+                 && request.auth.uid in get(/databases/$(database)/documents/leagues/$(leagueId)).data.members;
+      allow create: if request.auth != null
+                  && request.resource.data.ownerId == request.auth.uid
+                  && request.resource.data.name   is string
+                  && request.resource.data.roster is list;
+      allow update, delete: if request.auth != null
+                          && request.auth.uid == resource.data.ownerId;
+    }
+
+    // Deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
