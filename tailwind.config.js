@@ -8,7 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        market: ['"Market"', 'monospace'],
         arcade: ['"Silkscreen"', 'monospace'],
+        'arcade-bold': ['"SilkscreenBold"', 'monospace'],
       },
       colors: {
         black: "#000000",

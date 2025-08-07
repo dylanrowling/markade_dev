@@ -81,12 +81,12 @@ const CreateLeaguePage = () => {
           onChange={(e) => setDraftDuration(Number(e.target.value))}
           className="w-full px-4 py-2 rounded bg-gray-800 text-white"
         />
-        <Button type="submit">
+        <Button type="submit" variant="arcade2">
           Create League
         </Button>
       </form>
       <div className="mt-4">
-        <Button variant="tertiary" onClick={() => navigate('/dashboard')}>
+        <Button variant="default1" onClick={() => navigate('/dashboard')}>
           Back to Dashboard
         </Button>
       </div>

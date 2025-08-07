@@ -43,27 +43,27 @@ export default function LeaguePage() {
 
   return (
     <div className="text-white min-h-screen bg-black flex flex-col items-center gap-6 p-6">
-      <h1 className="text-3xl font-bold">{league.title}</h1>
-      <p className="text-sm text-gray-400">League ID: {league.id}</p>
-      <p>
+      <h1 className="text-3xl font-arcade-header">{league.title}</h1>
+      <p className="text-sm text-gray-400 font-market">League ID: {league.id}</p>
+      <p className="font-market">
         Draft Date:{' '}
         {league.draftDateTime?.seconds
           ? new Date(league.draftDateTime.seconds * 1000).toLocaleString()
           : 'N/A'}
       </p>
-      <p>Draft Duration: {league.draftDuration || 'N/A'} minutes</p>
-      <p className="mt-2">
+      <p className="font-market">Draft Duration: {league.draftDuration || 'N/A'} minutes</p>
+      <p className="mt-2 font-market">
         Role: {isCommissioner ? 'Commissioner' : 'Player'}
       </p>
       <div>
-        <h2 className="text-xl font-semibold mt-4">Members</h2>
+        <h2 className="text-xl font-market-header mt-4">Members</h2>
         <ul className="list-disc pl-5">
           {league.members?.map((memberId: string) => (
-            <li key={memberId}>{memberId}</li>
+            <li key={memberId} className="font-market">{memberId}</li>
           ))}
         </ul>
       </div>
-      <Button onClick={() => navigate('/dashboard')} variant="secondary">
+      <Button onClick={() => navigate('/dashboard')} variant="default1">
         Back to Dashboard
       </Button>
     </div>

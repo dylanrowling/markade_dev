@@ -50,12 +50,12 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
-      <h1 className="text-3xl font-bold mb-6 text-fuchsia-500">Create your Markade Account</h1>
+      <h1 className="text-3xl font-market-header mb-6 text-fuchsia-500">Create your Markade Account</h1>
       <form onSubmit={handleRegister} className="flex flex-col gap-4 w-80">
         <input
           type="text"
           placeholder="Display Name"
-          className="p-2 text-black rounded"
+          className="p-2 text-black rounded font-market"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           required
@@ -63,7 +63,7 @@ export default function Register() {
         <input
           type="email"
           placeholder="Email"
-          className="p-2 text-black rounded"
+          className="p-2 text-black rounded font-market"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -71,17 +71,17 @@ export default function Register() {
         <input
           type="password"
           placeholder="Password"
-          className="p-2 text-black rounded"
+          className="p-2 text-black rounded font-market"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button type="submit">
+        <Button type="submit" variant="default2">
           Register
         </Button>
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
-      <Button variant="tertiary" onClick={() => navigate("/login")}>
+      <Button variant="default1" onClick={() => navigate("/login")}>
         Back to Login
       </Button>
     </div>

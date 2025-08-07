@@ -1,6 +1,3 @@
-
-
-
 /* Silkscreen font face declarations — loaded locally */
 @font-face {
   font-family: 'Silkscreen';
@@ -12,10 +9,61 @@
 }
 
 @font-face {
-  font-family: 'Silkscreen';
+  font-family: 'SilkscreenBold';
   src: url('./Silkscreen-Bold.woff2') format('woff2'),
        url('./Silkscreen-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+}
+
+/* Market font face declaration — JetBrains Mono variant for terminal style */
+@font-face {
+  font-family: 'Market';
+  src: url('./JetBrainsMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Utility class for Market font to achieve pixelated 9pt terminal aesthetic */
+.font-market {
+  font-family: 'Market', monospace;
+  font-size: 1.2rem;
+  letter-spacing: 0.025em;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+}
+
+.font-market-header {
+  font-family: 'Market', monospace;
+  font-size: 2.0rem;
+  letter-spacing: 0.03em;
+  font-weight: bold;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+}
+
+.font-arcade {
+  font-family: 'Silkscreen', sans-serif;
+  font-size: 1.45rem;
+  letter-spacing: 0.025em;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+}
+
+.font-arcade-header {
+  font-family: 'SilkscreenBold', sans-serif;
+  font-size: 2.0rem;
+  letter-spacing: 0.03em;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
 }

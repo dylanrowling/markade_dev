@@ -56,27 +56,27 @@ const Login = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
       <form onSubmit={handleLogin} className="space-y-4 text-center">
-        <h1 className="text-xl font-bold">Log in to Markade</h1>
+        <h1 className="text-xl font-market-header">Log in to Markade</h1>
         <input
           type="email"
-          className="bg-gray-800 px-4 py-2 rounded"
+          className="bg-gray-800 px-4 py-2 rounded font-market"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <br />
         <input
           type="password"
-          className="bg-gray-800 px-4 py-2 rounded"
+          className="bg-gray-800 px-4 py-2 rounded font-market"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <Button type="submit">
+        <Button type="submit" variant="default2">
           Log In
         </Button>
         {error && <p className="text-red-500">{error}</p>}
       </form>
-      <Button variant="tertiary" onClick={() => navigate("/")}>
+      <Button variant="default1" onClick={() => navigate("/")}>
         Back to Landing
       </Button>
     </div>
