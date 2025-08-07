@@ -7,5 +7,22 @@
 @tailwind utilities;
 
 body {
-  @apply font-market;
+  @apply font-market text-white;
+  background-color: #0a0a0a;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at top left, rgba(0, 191, 255, 0.3) 0%, transparent 60%),
+    radial-gradient(circle at top right, rgba(255, 0, 191, 0.3) 0%, transparent 60%),
+    radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.2) 0%, transparent 70%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  background-blend-mode: lighten;
+  pointer-events: none;
 }
