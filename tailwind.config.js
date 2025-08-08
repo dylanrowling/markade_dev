@@ -13,17 +13,21 @@ module.exports = {
         'arcade-bold': ['"SilkscreenBold"', 'monospace'],
       },
       colors: {
-        black: "#000000",
-        white: "#ffffff",
-        background: "#0d1117",       // Midnight/black hybrid for base
-        surface: "#1e1e1e",          // Dark surface contrast
-        text: "#ffffff",             // Default light text
-        profitGreen: "#00ff00",     // Terminal-style green
-        lossRed: "#ff3c3c",         // Terminal-style red
-        primary: "#ff6700",      // Primary in-game orange
-        neonBlue: "#00bfff",        // Neon triadic blue
-        neonPink: "#ff00bf",        // Neon triadic pink
-        neonLime: "#bfff00",        // Neon triadic lime
+        background: "#0e1b2a",     // Midnight navy base
+        surface: "#132235",        // Cooler navy panels
+        text: "#ffffff",           // Default light text
+        textDim: "#9fb0c0",        // Secondary text
+        borderDim: "#2a3543",      // Dim borders / gridlines
+        profitGreen: "#00ff00",   // Terminal-style green
+        lossRed: "#ff3c3c",       // Terminal-style red
+        primary: "#ff6700",    // Primary in-game orange
+        neonBlue: "#00bfff",      // Neon triadic blue
+        neonPink: "#ff00bf",      // Neon triadic pink
+        casinoYellow: "#FFD700", // Gold slot-machine yellow
+        casinoRed: "#B22222", // Deep casino red for accents
+      },
+      backgroundImage: {
+        navyGradient: 'linear-gradient(to bottom, #0e1b2a, #0b1522)', // subtle header/panel depth
       },
     },
   },

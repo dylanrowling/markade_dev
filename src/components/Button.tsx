@@ -5,7 +5,7 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default1' | 'default2' | 'arcade1' | 'arcade2';
+  variant?: 'default1' | 'default2' | 'arcade1' | 'arcade2' | 'confirm' | 'cancel' | 'back';
   children: React.ReactNode;
 }
 
@@ -16,16 +16,19 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    'px-4 py-2 rounded font-semibold transition-colors duration-500 ease-out hover:duration-0 focus:outline-none focus:ring-2 focus:ring-offset-2 border-2 border-white';
+    'px-4 py-2 rounded font-semibold transition-colors duration-700 ease-out hover:duration-0 focus:outline-none focus:ring-2 focus:ring-borderDim focus:ring-offset-0 border-2 border-white';
   const variantClasses: Record<string, string> = {
-    default1: 'font-market text-white bg-black rounded px-4 py-2 text-base hover:text-black hover:bg-white group-active:bg-white active:bg-white active:text-black',
-    default2: 'font-market-header text-white bg-black rounded px-6 py-3 text-xl hover:text-black hover:bg-white group-active:bg-white active:bg-white active:text-black',
-    arcade1: 'font-arcade text-primary rounded px-4 py-2 text-base hover:text-black hover:bg-primary active:bg-primary active:text-black',
-    arcade2: 'font-arcade-header text-primary rounded px-6 py-3 text-xl hover:text-black hover:bg-primary active:bg-primary active:text-black',
+    default1: 'font-market bg-transparent hover:bg-white hover:text-background active:bg-neonBlue active:text-background rounded px-4 py-2 text-base',
+    default2: 'font-market-header bg-transparent hover:bg-white hover:text-background active:bg-neonBlue active:text-background rounded px-6 py-3 text-xl',
+    arcade1: 'font-arcade bg-transparent hover:bg-casinoYellow hover:text-background active:bg-neonBlue active:text-background rounded px-4 py-2 text-base',
+    arcade2: 'font-arcade-bold bg-transparent hover:bg-casinoYellow hover:text-background active:bg-neonBlue active:text-background rounded px-6 py-3 text-xl',
+    confirm: 'font-market bg-profitGreen text-background hover:bg-neonBlue hover:text-background active:bg-neonBlue active:text-background rounded px-4 py-2 text-base',
+    cancel: 'font-market bg-lossRed text-background hover:bg-neonBlue hover:text-background active:bg-neonBlue active:text-background rounded px-4 py-2 text-base',
+    back: 'font-market bg-transparent text-white hover:bg-surface hover:text-white active:bg-neonBlue active:text-background rounded px-4 py-2 text-base',
   };
-
+  
   return (
-    <div className={`inline-block p-[3px] border-2 border-white transition-all duration-150 ${props.disabled ? '' : 'group'} ${variant.startsWith('arcade') ? 'active:bg-primary' : 'active:bg-white'}`}>
+    <div className={`inline-block p-[3px] border-2 border-white transition-all duration-150 ${props.disabled ? '' : 'group'}`}>
       <button
         className={`${baseStyles} ${variantClasses[variant] || variantClasses.default1} ${className}`}
         {...props}

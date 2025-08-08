@@ -1,28 +1,31 @@
 @import "./assets/fonts/fonts.css";
 /* Tailwind CSS layers for base, components, and utilities — Markade clean slate */
-/* --- Updated: 2025-08-06 --- */
+/* --- Updated: 2025-08-07 — Remove radial gradients, use solid midnight background via theme token --- */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply font-market text-white;
-  background-color: #0a0a0a;
-  position: relative;
-  overflow: hidden;
+/* Keep global resets in Tailwind's base layer */
+@layer base {
+  html, body, #root { min-height: 100%; }
+
+  body {
+    /* Use theme token from tailwind.config.js */
+    @apply font-market text-white bg-background;
+  }
 }
 
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(circle at top left, rgba(0, 191, 255, 0.3) 0%, transparent 60%),
-    radial-gradient(circle at top right, rgba(255, 0, 191, 0.3) 0%, transparent 60%),
-    radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.2) 0%, transparent 70%),
-    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-  background-blend-mode: lighten;
-  pointer-events: none;
+@layer utilities {
+  /* Default colors by font family */
+  .font-arcade { @apply text-primary; } /* Orange */
+
+  /* Casino slot-machine vibe for bold arcade text */
+  .font-arcade-bold { @apply text-casinoYellow; }
+
+  /* White for market font */
+  .font-market { @apply text-white; }
+
+  /* Active/interactive state for arcade bold */
+  .arcade-bold-active { @apply text-neonBlue; }
 }
