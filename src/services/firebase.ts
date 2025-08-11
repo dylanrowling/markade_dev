@@ -14,16 +14,35 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
+// ✅ Warn in development if any env vars are missing
+if (import.meta.env.MODE === "development") {
+  for (const [key, value] of Object.entries(firebaseConfig)) {
+    if (!value) {
+      console.warn(`⚠️ Missing Firebase env var: ${key}`);
+    }
+  }
+}
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// ✅ Connect to local emulators in development
+// ✅ Connect to local emulators in development (only if not already connected)
 if (import.meta.env.MODE === "development") {
-  connectAuthEmulator(auth, "http://127.0.0.1:9099");
-  connectFirestoreEmulator(db, "127.0.0.1", 8080);
-}
+  try {
+    // @ts-expect-error Firebase does not expose emulator connection state
+    if (!auth._isEmulator) {
+      connectAuthEmulator(auth, "http://127.0.0.1:9099");
+    }
+    // @ts-expect-error same for Firestore
+    if (!db._settings?.host?.includes("127.0.0.1")) {
+      connectFirestoreEmulator(db, "127.0.0.1", 8080);
+    }
+  } catch (err) {
+    console.warn("⚠️ Emulator connection check failed:", err);
+  }
 
-console.log("✅ Firebase initialized:", app.name);
+  console.log("✅ Firebase initialized:", app.name);
+}
 
 export { app, auth, db };

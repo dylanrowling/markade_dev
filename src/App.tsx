@@ -13,33 +13,17 @@ function App() {
   return (
     <div className="min-h-screen bg-background text-text font-market">
       <Routes>
+        {/* Public */}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/create-league"
-          element={
-            <ProtectedRoute>
-              <CreateLeaguePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/league/:leagueId"
-          element={
-            <ProtectedRoute>
-              <LeaguePage />
-            </ProtectedRoute>
-          }
-        />
+
+        {/* Private (guarded by ProtectedRoute) */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/create-league" element={<CreateLeaguePage />} />
+          <Route path="/league/:leagueId/*" element={<LeaguePage />} />
+        </Route>
       </Routes>
     </div>
   );

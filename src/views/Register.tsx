@@ -34,32 +34,34 @@ export default function Register() {
       // Create auth user via centralized provider
       await register(email, password);
 
-      // Update display name on the current user
+      // Ensure current user is available before continuing
       const current = auth.currentUser;
-      if (current && displayName.trim()) {
+      if (!current) {
+        throw new Error(
+          "Registration completed, but user session not available yet. Please try logging in."
+        );
+      }
+
+      // Update display name on the current user
+      if (displayName.trim()) {
         await updateProfile(current, { displayName });
       }
 
       // Create a user profile document in Firestore
-      if (current) {
-        await setDoc(doc(db, "users", current.uid), {
-          displayName,
-          email,
-          createdAt: serverTimestamp(),
-          role: "player",
-          leagueId: null,
-        });
-      }
+      await setDoc(doc(db, "users", current.uid), {
+        displayName,
+        email,
+        createdAt: serverTimestamp(),
+        role: "player",
+        leagueId: null,
+      });
 
       console.log("✅ User registered");
       navigate(from, { replace: true });
     } catch (err: any) {
-      console.error("❌ Registration failed:", err.message);
-      if (err.code === "auth/email-already-in-use") {
-        setError("This email is already registered. Try logging in.");
-      } else {
-        setError("Registration failed. Please try again.");
-      }
+      console.error("❌ Registration failed:", err);
+      // AuthProvider normalizes to a plain Error with a message
+      setError(err?.message ?? "Registration failed. Please try again.");
     } finally {
       setPending(false);
     }

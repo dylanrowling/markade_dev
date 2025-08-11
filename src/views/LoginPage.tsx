@@ -29,14 +29,9 @@ const Login = () => {
       console.log("✅ Logged in");
       navigate(from, { replace: true });
     } catch (err: any) {
-      console.error(err.message);
-      if (err.code === "auth/user-not-found") {
-        setError("No user found with that email.");
-      } else if (err.code === "auth/wrong-password") {
-        setError("Incorrect password.");
-      } else {
-        setError("Login failed. Please try again.");
-      }
+      console.error(err);
+      // AuthProvider normalizes to a plain Error with a message
+      setError(err?.message ?? "Login failed. Please try again.");
     } finally {
       setPending(false);
     }
