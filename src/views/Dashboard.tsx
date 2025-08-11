@@ -9,11 +9,13 @@ import { useEffect, useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import useAuth from '../hooks/useAuth';
+import { useQuotes } from '../hooks/useStocks';
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
   const [leagues, setLeagues] = useState<any[]>([]);
+  const { data: quotes, loading: quotesLoading, error: quotesError } = useQuotes(["AAPL", "GOOGL", "MSFT"]);
 
   if (loading) return <p className="text-white">Loading...</p>;
 
@@ -74,6 +76,42 @@ export default function Dashboard() {
       <Button onClick={handleLogout} variant="default1">
         Log Out {user?.email ? `(${user.email})` : ''}
       </Button>
+      {/* Live Quotes Test – quick smoke test for stockClient (mock | finnhub) */}
+      <div className="text-base w-full max-w-2xl mt-6">
+        <div className="border border-white/20 rounded p-3">
+          <h3 className="font-market-header text-xl mb-2">Live Quotes Test</h3>
+          {quotesLoading && <p>Loading quotes…</p>}
+          {quotesError && <p className="text-red-400">{quotesError}</p>}
+          {!quotesLoading && !quotesError && (
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ textAlign: 'left', borderBottom: '1px solid var(--mk-border)' }}>
+                  <th>Ticker</th>
+                  <th>Price</th>
+                  <th>Change %</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(quotes ?? []).map((q) => (
+                  <tr key={q.ticker} style={{ borderBottom: '1px solid var(--mk-grid)' }}>
+                    <td>{q.ticker}</td>
+                    <td>{q.price.toFixed(2)}</td>
+                    <td style={{ color: q.changePct >= 0 ? 'var(--mk-green)' : 'var(--mk-red)' }}>
+                      {q.changePct.toFixed(2)}
+                    </td>
+                    <td>{new Date(q.ts).toLocaleTimeString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          <p className="text-xs text-gray-400 mt-2">
+            {/* TODO: Remove this test once data wiring is confirmed. Controlled by VITE_STOCKS_PROVIDER (mock | finnhub). */}
+            Data source controlled by VITE_STOCKS_PROVIDER.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
