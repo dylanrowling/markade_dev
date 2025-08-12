@@ -86,7 +86,7 @@ const UiPlayground: React.FC = () => {
         <div className="space-y-5">
           <div>
             <div className="text-textDim text-sm mb-2">arcade variants</div>
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-1 gap-3 w-full">
               <Button variant="arcade1" size="sm">Arcade1 / sm</Button>
               <Button variant="arcade1" size="md">Arcade1 / md</Button>
               <Button variant="arcade1" size="lg">Arcade1 / lg</Button>
@@ -97,7 +97,7 @@ const UiPlayground: React.FC = () => {
           </div>
           <div>
             <div className="text-textDim text-sm mb-2">default variants</div>
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-1 gap-3 w-full">
               <Button variant="default1" size="sm">Default1 / sm</Button>
               <Button variant="default1" size="md">Default1 / md</Button>
               <Button variant="default1" size="lg">Default1 / lg</Button>

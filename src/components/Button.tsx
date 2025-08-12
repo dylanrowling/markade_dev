@@ -39,26 +39,26 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   // Variant look & feel (using your theme tokens)
   const variantClasses: Record<string, string> = {
     default1:
-      'font-market bg-transparent hover:bg-white hover:text-background active:bg-neonBlue active:text-background px-4 py-2 text-base',
+      'font-market bg-transparent hover:bg-white hover:text-background active:bg-neonBlue active:text-background',
     default2:
-      'font-market-header bg-transparent hover:bg-white hover:text-background active:bg-neonBlue active:text-background px-6 py-3 text-xl',
+      'font-market font-bold bg-transparent hover:bg-white hover:text-background active:bg-neonBlue active:text-background',
     arcade1:
-      'font-arcade bg-transparent hover:bg-casinoYellow hover:text-background active:bg-neonBlue active:text-background px-4 py-2 text-base',
+      'font-arcade bg-transparent hover:bg-primary hover:text-black active:bg-neonBlue active:text-background',
     arcade2:
-      'font-arcade-bold bg-transparent hover:bg-casinoYellow hover:text-background active:bg-neonBlue active:text-background px-6 py-3 text-xl',
+      'font-arcade font-bold bg-transparent hover:bg-casinoYellow hover:text-background active:bg-neonBlue active:text-background',
     confirm:
-      'font-market bg-profitGreen text-background hover:bg-neonBlue hover:text-background active:bg-neonBlue active:text-background px-4 py-2 text-base',
+      'font-market bg-profitGreen !text-black hover:bg-white hover:!text-black active:bg-neonBlue active:text-background',
     cancel:
-      'font-market bg-lossRed text-background hover:bg-neonBlue hover:text-background active:bg-neonBlue active:text-background px-4 py-2 text-base',
+      'font-market bg-lossRed text-background hover:bg-white hover:text-black active:bg-neonBlue active:text-background',
     back:
-      'font-market bg-transparent text-white hover:bg-surface hover:text-white active:bg-neonBlue active:text-background px-4 py-2 text-base',
+      'font-market bg-transparent text-white hover:bg-white hover:text-black active:bg-neonBlue active:text-background',
   };
 
   // Size system — ensures comfortable tap targets; does not override variant padding
   const sizeClasses = {
-    sm: 'min-h-[36px] text-sm',
-    md: 'min-h-[44px] text-base',
-    lg: 'min-h-[52px] text-lg',
+    sm: 'text-sm leading-none px-4 py-2.5',
+    md: 'text-base leading-none px-5 py-3',
+    lg: 'text-xl leading-none px-6 py-3.5',
   } as const;
 
   const isDisabled = disabled || isLoading;
@@ -66,7 +66,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 
   return (
     <div
-      className={`inline-block p-[3px] border-2 border-white transition-all duration-150 ${
+      className={`inline-block w-max p-[3px] border-2 border-white transition-all duration-150 ${
         isDisabled ? 'pointer-events-none' : 'group'
       }`}
       aria-disabled={isDisabled || undefined}
