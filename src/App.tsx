@@ -9,6 +9,7 @@ import Register from './views/Register';
 import Dashboard from './views/Dashboard.tsx'; // placeholder if needed
 import CreateLeaguePage from './views/CreateLeaguePage.tsx';
 import LeaguePage from './views/LeaguePage';
+import UiPlayground from './views/UiPlayground';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-league" element={<CreateLeaguePage />} />
           <Route path="/league/:leagueId/*" element={<LeaguePage />} />
+          <Route path="/playground" element={<UiPlayground />} />
         </Route>
       </Route>
     </Routes>

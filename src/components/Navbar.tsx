@@ -14,6 +14,13 @@ export default function Navbar() {
         <div className="font-arcade-bold text-casinoYellow text-xl cursor-pointer" onClick={() => navigate('/dashboard')}>
           MARKADE
         </div>
+        {import.meta.env.VITE_SHOW_PLAYGROUND === '1' && (
+          <div className="flex items-center gap-4">
+            <button className="underline text-neonBlue text-sm" onClick={() => navigate('/playground')}>
+              Playground
+            </button>
+          </div>
+        )}
         <div className="flex items-center gap-2">
           {user ? (
             <>
