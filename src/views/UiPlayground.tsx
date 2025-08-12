@@ -24,11 +24,11 @@ const UiPlayground: React.FC = () => {
         <SectionHeader title="Typography" subtitle="Font stacks & scales" />
         <div className="space-y-3">
           <div>
-            <div className="font-arcade-bold text-casinoYellow text-4xl">MARKADE / Arcade Bold</div>
-            <div className="font-arcade text-neonBlue text-2xl">Arcade Regular</div>
+            <div className="mk-arcade-display text-4xl tracking-tight">Arcade Bold</div>
+            <div className="font-arcade text-2xl">Arcade Regular</div>
           </div>
           <div>
-            <div className="font-market-header text-2xl">Market Header</div>
+            <div className="font-market font-bold tracking-normal text-2xl">Market Header</div>
             <div className="font-market text-base text-textDim">Body copy — IBMPlexMono</div>
           </div>
           {/* Font size scale block */}
@@ -39,30 +39,30 @@ const UiPlayground: React.FC = () => {
               <div>
                 <div className="text-textDim text-xs mb-1">Arcade Bold</div>
                 <div className="flex flex-wrap gap-4 items-end">
-                  <span className="font-arcade-bold text-base text-casinoYellow">text-base</span>
-                  <span className="font-arcade-bold text-lg text-casinoYellow">text-lg</span>
-                  <span className="font-arcade-bold text-xl text-casinoYellow">text-xl</span>
-                  <span className="font-arcade-bold text-2xl text-casinoYellow">text-2xl</span>
+                  <span className="font-arcade font-bold text-base">text-base</span>
+                  <span className="font-arcade font-bold text-lg">text-lg</span>
+                  <span className="font-arcade font-bold text-xl">text-xl</span>
+                  <span className="font-arcade font-bold text-2xl">text-2xl</span>
                 </div>
               </div>
               {/* Arcade Regular */}
               <div>
                 <div className="text-textDim text-xs mb-1">Arcade Regular</div>
                 <div className="flex flex-wrap gap-4 items-end">
-                  <span className="font-arcade text-neonBlue text-base">text-base</span>
-                  <span className="font-arcade text-neonBlue text-lg">text-lg</span>
-                  <span className="font-arcade text-neonBlue text-xl">text-xl</span>
-                  <span className="font-arcade text-neonBlue text-2xl">text-2xl</span>
+                  <span className="font-arcade text-base">text-base</span>
+                  <span className="font-arcade text-lg">text-lg</span>
+                  <span className="font-arcade text-xl">text-xl</span>
+                  <span className="font-arcade text-2xl">text-2xl</span>
                 </div>
               </div>
               {/* Market Header */}
               <div>
                 <div className="text-textDim text-xs mb-1">Market Header</div>
                 <div className="flex flex-wrap gap-4 items-end">
-                  <span className="font-market-header text-base">text-base</span>
-                  <span className="font-market-header text-lg">text-lg</span>
-                  <span className="font-market-header text-xl">text-xl</span>
-                  <span className="font-market-header text-2xl">text-2xl</span>
+                  <span className="font-market font-bold tracking-normal text-base">text-base</span>
+                  <span className="font-market font-bold tracking-normal text-lg">text-lg</span>
+                  <span className="font-market font-bold tracking-normal text-xl">text-xl</span>
+                  <span className="font-market font-bold tracking-normal text-2xl">text-2xl</span>
                 </div>
               </div>
               {/* Market Body */}
@@ -145,18 +145,18 @@ const UiPlayground: React.FC = () => {
         <table className="w-full border-collapse">
           <thead>
             <tr className="text-left border-b border-borderDim">
-              <th scope="col" className="py-2">Column</th>
-              <th scope="col" className="py-2">Value</th>
+              <th scope="col" className="py-2 px-3">Column</th>
+              <th scope="col" className="py-2 px-3">Value</th>
             </tr>
           </thead>
           <tbody>
             <tr className="border-b border-borderDim/50">
-              <td className="py-2">Example</td>
-              <td className="py-2 text-textDim">Hello world</td>
+              <td className="py-2 px-3">Example</td>
+              <td className="py-2 px-3 text-textDim">Hello world</td>
             </tr>
             <tr>
-              <td className="py-2">Accent</td>
-              <td className="py-2 text-neonPink">Neon pink text</td>
+              <td className="py-2 px-3">Accent</td>
+              <td className="py-2 px-3 text-neonPink">Neon pink text</td>
             </tr>
           </tbody>
         </table>

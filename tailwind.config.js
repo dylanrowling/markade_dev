@@ -1,3 +1,10 @@
+// tailwind.config.js — updated [2025-08-12]
+/*
+ * File: tailwind.config.js
+ * Purpose: Tailwind configuration for Markade. Defines content paths, theme tokens, and font families.
+ * Update Log:
+ * - 2025-08-12: Unified Silkscreen under one family; kept temporary 'arcade-bold' alias mapped to Silkscreen for safe migration. — Assistant
+ */
 // tailwind.config.js — updated [2025-08-06]
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,9 +15,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        market: ['"Market"', 'monospace'],
-        arcade: ['"Silkscreen"', 'monospace'],
-        'arcade-bold': ['"SilkscreenBold"', 'monospace'],
+        market: ['"Market"', '"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'monospace'],
+        arcade: ['"Silkscreen"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        // TEMP: keep until all `font-arcade-bold` usages are replaced with `font-arcade font-bold`
+        'arcade-bold': ['"Silkscreen"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
       colors: {
         background: "#0e1b2a",     // Midnight navy base

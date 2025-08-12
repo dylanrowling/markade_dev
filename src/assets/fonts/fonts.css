@@ -1,67 +1,48 @@
-/* Silkscreen font face declarations — loaded locally */
+/*
+ * File: src/assets/fonts/fonts.css
+ * Purpose: Local @font-face declarations for Markade type (Silkscreen display + Market body).
+ * Update Log:
+ * - 2025-08-12: Unified Silkscreen regular and bold under one family name "Silkscreen".
+ * - 2025-08-12: Kept temporary "SilkscreenBold" alias for safe migration. Remove once all `font-arcade-bold` usages are replaced.
+ */
+
+/* Silkscreen font faces — display type */
 @font-face {
-  font-family: 'Silkscreen';
-  src: url('./Silkscreen-Regular.woff2') format('woff2'),
-       url('./Silkscreen-Regular.ttf') format('truetype');
+  font-family: "Silkscreen";
+  src: url("./Silkscreen-Regular.woff2") format("woff2"),
+       url("./Silkscreen-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'SilkscreenBold';
-  src: url('./Silkscreen-Bold.woff2') format('woff2'),
-       url('./Silkscreen-Bold.ttf') format('truetype');
+  font-family: "Silkscreen";
+  src: url("./Silkscreen-Bold.woff2") format("woff2"),
+       url("./Silkscreen-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* Market font face declaration — IBM Plex Mono for improved sharpness */
+/* TEMP alias for migration
+   Delete this block after replacing `font-arcade-bold` with `font-arcade font-bold` across the app */
 @font-face {
-  font-family: 'Market';
-  src: url('./IBMPlexMono-Regular.woff2') format('woff2'),
-       url('./IBMPlexMono-Regular.woff') format('woff'),
-       url('./IBMPlexMono-Regular.ttf') format('truetype');
-  font-weight: 400;
+  font-family: "SilkscreenBold";
+  src: url("./Silkscreen-Bold.woff2") format("woff2"),
+       url("./Silkscreen-Bold.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* Utility class for Market font — smooth JetBrains Mono NL terminal aesthetic */
-.font-market {
-  font-family: 'Market', monospace;
-  font-size: 1.2rem;
-  letter-spacing: 0.025em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.font-market-header {
-  font-family: 'Market', monospace;
-  font-size: 2.0rem;
-  letter-spacing: 0.03em;
-  font-weight: bold;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.font-arcade {
-  font-family: 'Silkscreen', sans-serif;
-  font-size: 1.45rem;
-  letter-spacing: 0.025em;
-  image-rendering: pixelated;
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: grayscale;
-  font-smooth: never;
-}
-
-.font-arcade-header {
-  font-family: 'SilkscreenBold', sans-serif;
-  font-size: 2.0rem;
-  letter-spacing: 0.03em;
-  image-rendering: pixelated;
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: grayscale;
-  font-smooth: never;
+/* Market font face — IBM Plex Mono for body copy */
+@font-face {
+  font-family: "Market";
+  src: url("./IBMPlexMono-Regular.woff2") format("woff2"),
+       url("./IBMPlexMono-Regular.woff") format("woff"),
+       url("./IBMPlexMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }

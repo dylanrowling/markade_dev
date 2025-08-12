@@ -45,10 +45,8 @@ const ArcadeBanner: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 py-3 md:py-4 grid grid-cols-[auto,1fr,auto] items-center gap-4">
         <BullSprite className="w-10 h-8 md:w-12 md:h-10" />
 
-        <h1 className="text-center font-arcade-bold">
-          <span className="text-casinoYellow text-3xl md:text-5xl tracking-wider drop-shadow-[0_2px_0_rgba(112,91,0,0.9)]">
-            MARKADE
-          </span>
+        <h1 className="text-center mk-arcade-display pixelated text-3xl md:text-5xl drop-shadow-[0_2px_0_rgba(112,91,0,0.9)]">
+          MARKADE
         </h1>
 
         <BearSprite className="w-10 h-8 md:w-12 md:h-10" />

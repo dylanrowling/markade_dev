@@ -1,3 +1,9 @@
+/*
+ * File: src/index.css
+ * Purpose: Global Tailwind layers, base resets, and Markade theme utilities (fonts, colors, a11y helpers).
+ * Update Log:
+ * - 2025-08-12: Added mk- prefixed text-color utilities to avoid collision with Tailwind font-family utilities. Kept legacy classes in place for now. — Assistant
+ */
 @import "./assets/fonts/fonts.css";
 /* Tailwind CSS layers for base, components, and utilities — Markade clean slate */
 /* --- Updated: 2025-08-07 — Remove radial gradients, use solid midnight background via theme token --- */
@@ -58,17 +64,15 @@
 }
 
 @layer utilities {
-  /* Default colors by font family */
+  /* Optional color-only helpers (use when you want to color text without changing fonts) */
+  .mk-text-arcade { @apply text-primary; }        /* Orange text for arcade display elements */
+  .mk-text-arcade-bold { @apply text-casinoYellow; } /* Casino yellow for punchy display text */
+  .mk-text-market { @apply text-white; }          /* Default market/body text color */
+  .mk-text-arcade-active { @apply text-neonBlue; }   /* Active state accent */
+
   .font-arcade { @apply text-primary; } /* Orange */
 
-  /* Casino slot-machine vibe for bold arcade text */
-  .font-arcade-bold { @apply text-casinoYellow; }
-
-  /* White for market font */
   .font-market { @apply text-white; }
-
-  /* Active/interactive state for arcade bold */
-  .arcade-bold-active { @apply text-neonBlue; }
 
   /* Accessibility: visually hidden but still in DOM */
   .visually-hidden {
@@ -111,4 +115,10 @@
 
   /* Full-height sections that play nice with mobile keyboards */
   .min-h-dvh { min-height: 100dvh; }
+
+  /* Default: any arcade + bold text renders yellow */
+  .font-arcade.font-bold { @apply text-casinoYellow tracking-tight; }
+
+  /* Reusable display helper for big arcade headings */
+  .mk-arcade-display { @apply font-arcade font-bold !text-casinoYellow leading-none; }
 }
