@@ -8,19 +8,49 @@
  *  - 2025-08-11 23:10 ET — TTL cache duration now configurable via VITE_QUOTES_TTL_MS
  */
 
+
 import type { Ticker, StockQuote } from "../types";
+
+// ---------- Deterministic helpers for mock pricing ----------
+// Non-crypto 32-bit FNV-1a hash for stable pseudo-random values per string
+function hash(str: string): number {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+// Stable base price derived from ticker symbol (e.g., $50–$350 with cents)
+function basePrice(ticker: string): number {
+  const h = hash(ticker);
+  const dollars = 50 + (h % 301); // 50..350
+  const cents = (h % 100) / 100;  // .00..99
+  return Number((dollars + cents).toFixed(2));
+}
+
+// Minute-bucket drift percentage in a realistic band (~±2.00%)
+function minuteDrift(ticker: string): number {
+  const minuteBucket = Math.floor(Date.now() / 60000); // changes once per minute
+  const h = hash(`${ticker}:${minuteBucket}`);
+  const pct = ((h % 401) - 200) / 100; // -2.00 .. +2.00
+  return Number(pct.toFixed(2));
+}
 
 export interface StockClient {
   getQuote(ticker: Ticker): Promise<StockQuote>;
   getQuotes(tickers: Ticker[]): Promise<StockQuote[]>;
 }
 
-/** Mock implementation for local UI work */
+/** Mock implementation for local UI work (deterministic) */
 class MockStockClient implements StockClient {
   async getQuote(ticker: Ticker): Promise<StockQuote> {
-    const price = 100 + Math.random() * 50;
-    const changePct = (Math.random() - 0.5) * 5;
-    return { ticker, price, changePct, ts: Date.now() };
+    const t = String(ticker).toUpperCase();
+    const base = basePrice(t);
+    const dp = minuteDrift(t); // change percent
+    const price = Number((base * (1 + dp / 100)).toFixed(2));
+    return { ticker: t as Ticker, price, changePct: dp, ts: Date.now() };
   }
   async getQuotes(tickers: Ticker[]): Promise<StockQuote[]> {
     return Promise.all(tickers.map((t) => this.getQuote(t)));
