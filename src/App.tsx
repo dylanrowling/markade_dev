@@ -2,6 +2,7 @@
 
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import Shell from './components/Shell';
 import Landing from './views/Landing';
 import Login from './views/LoginPage';
 import Register from './views/Register';
@@ -11,8 +12,8 @@ import LeaguePage from './views/LeaguePage';
 
 function App() {
   return (
-    <div className="min-h-screen bg-background text-text font-market">
-      <Routes>
+    <Routes>
+      <Route element={<Shell />}>
         {/* Public */}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
@@ -24,8 +25,8 @@ function App() {
           <Route path="/create-league" element={<CreateLeaguePage />} />
           <Route path="/league/:leagueId/*" element={<LeaguePage />} />
         </Route>
-      </Routes>
-    </div>
+      </Route>
+    </Routes>
   );
 }
 
