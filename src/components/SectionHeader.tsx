@@ -1,5 +1,3 @@
-
-
 /**
  * SectionHeader.tsx
  * Purpose: Consistent section titles and optional subtext for panels
@@ -9,11 +7,12 @@
 
 import React from 'react';
 
-export default function SectionHeader({ title, sub }: { title: string; sub?: string }) {
+export default function SectionHeader({ title, sub, subtitle }: { title: string; sub?: string; subtitle?: string }) {
+  const subText = subtitle ?? sub;
   return (
     <header className="mb-3">
       <h2 className="font-market-header text-white tracking-wide">{title}</h2>
-      {sub ? <p className="text-textDim text-sm mt-1">{sub}</p> : null}
+      {subText ? <p className="text-textDim text-sm mt-1">{subText}</p> : null}
     </header>
   );
 }
