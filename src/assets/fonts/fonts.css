@@ -1,16 +1,20 @@
 /*
  * File: src/assets/fonts/fonts.css
- * Purpose: Local @font-face declarations for Markade type (Silkscreen display + Market body).
+ * Purpose: Central @font-face declarations for Markade (Silkscreen display + Market body).
  * Update Log:
- * - 2025-08-12: Unified Silkscreen regular and bold under one family name "Silkscreen".
- * - 2025-08-12: Kept temporary "SilkscreenBold" alias for safe migration. Remove once all `font-arcade-bold` usages are replaced.
+ * - 2025-08-13: Added local() fallbacks, added IBM Plex Mono 500 weight, confirmed font-display swap.
  */
 
-/* Silkscreen font faces — display type */
+/* ===========================
+   SILKSCREEN (Arcade headings)
+   =========================== */
 @font-face {
   font-family: "Silkscreen";
-  src: url("./Silkscreen-Regular.woff2") format("woff2"),
-       url("./Silkscreen-Regular.ttf") format("truetype");
+  src:
+    local("Silkscreen Regular"),
+    local("Silkscreen-Regular"),
+    url("./Silkscreen-Regular.woff2") format("woff2"),
+    url("./Silkscreen-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -18,31 +22,59 @@
 
 @font-face {
   font-family: "Silkscreen";
-  src: url("./Silkscreen-Bold.woff2") format("woff2"),
-       url("./Silkscreen-Bold.ttf") format("truetype");
-  font-weight: 700;
+  src:
+    local("Silkscreen Bold"),
+    local("Silkscreen-Bold"),
+    url("./Silkscreen-Bold.woff2") format("woff2"),
+    url("./Silkscreen-Bold.ttf") format("truetype");
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
-/* TEMP alias for migration
-   Delete this block after replacing `font-arcade-bold` with `font-arcade font-bold` across the app */
+/* TEMP alias for migration only.
+   Delete this block after replacing `font-arcade-bold` with `font-arcade font-bold` across the app. */
 @font-face {
   font-family: "SilkscreenBold";
-  src: url("./Silkscreen-Bold.woff2") format("woff2"),
-       url("./Silkscreen-Bold.ttf") format("truetype");
+  src:
+    local("Silkscreen Bold"),
+    local("Silkscreen-Bold"),
+    url("./Silkscreen-Bold.woff2") format("woff2"),
+    url("./Silkscreen-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* Market font face — IBM Plex Mono for body copy */
+/* ==================================
+   IBM Plex Mono (Market body/system)
+   ================================== */
 @font-face {
-  font-family: "Market";
-  src: url("./IBMPlexMono-Regular.woff2") format("woff2"),
-       url("./IBMPlexMono-Regular.woff") format("woff"),
-       url("./IBMPlexMono-Regular.ttf") format("truetype");
+  font-family: "Market"; /* mapped in Tailwind as font-market */
+  src:
+    local("IBM Plex Mono Regular"),
+    local("IBM-Plex-Mono-Regular"),
+    url("./IBMPlexMono-Regular.woff2") format("woff2"),
+    url("./IBMPlexMono-Regular.woff") format("woff"),
+    url("./IBMPlexMono-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "Market"; /* 500 weight for stronger labels/buttons */
+  src:
+    local("IBM Plex Mono Text"),
+    local("IBM-Plex-Mono-Text"),
+    url("./IBMPlexMono-Text.woff2") format("woff2"),
+    url("./IBMPlexMono-Text.woff") format("woff"),
+    url("./IBMPlexMono-Text.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Utility hooks (pure font family; colors come from tokens) */
+.font-arcade { font-family: "Silkscreen", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+.font-market { font-family: "Market", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }

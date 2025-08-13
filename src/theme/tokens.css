@@ -1,0 +1,66 @@
+/* tokens.css
+   Purpose: Design tokens as CSS variables for semantic colors and primitives.
+   Note: Tailwind utility classes map to these variables via tailwind.config.js (e.g., bg-app → --bg-app).
+   Update log:
+   - 2025-08-13: Initial token set with semantic and primitive colors using RGB triplets for Tailwind alpha.
+   - 2025-08-13: Naming tidy — renamed --brand-neonBlue → --brand-neon-blue and updated references.
+*/
+
+/* Base theme on :root */
+:root {
+  /* Primitives (RGB triplets) */
+  --brand-fuchsia: 255 45 207;       /* #ff2dcf */
+  --brand-neon-blue: 0 209 255;      /* #00d1ff */
+  --brand-yellow: 255 216 0;         /* #ffd800 */
+
+  --neutral-black: 0 0 0;
+  --neutral-white: 255 255 255;
+  --neutral-gray-300: 207 207 210;   /* #cfcfd2 */
+  --neutral-gray-500: 139 141 147;   /* #8b8d93 */
+  --neutral-gray-700: 60 63 71;      /* #3c3f47 */
+  --neutral-gray-800: 38 40 45;      /* #26282d */
+  --neutral-gray-900: 21 22 26;      /* #15161a */
+
+  /* Semantics */
+  --fg-default: var(--neutral-white);      /* market-white */
+  --fg-subtle: var(--neutral-gray-300);    /* market-gray */
+
+  --bg-app: var(--neutral-gray-900);
+  --bg-panel: var(--neutral-gray-800);
+
+  --accent-pink: var(--brand-fuchsia);
+  --accent-blue: var(--brand-neon-blue);
+  --accent-yellow: var(--brand-yellow);
+
+  --border-default: var(--neutral-gray-700);
+  --border-accent: var(--brand-fuchsia);
+
+  /* Shell seeds for later */
+  --shell-bg: var(--bg-panel);
+  --shell-border: var(--border-default);
+  --shell-highlight: var(--accent-blue);
+
+  /* States */
+  --state-success: 0 255 0;          /* #00ff00 terminal green */
+  --state-error: 255 60 60;          /* #ff3c3c terminal red */
+  --state-warning: 255 215 0;        /* #ffd700 aligns with accent-yellow */
+  --state-info: 0 209 255;           /* #00d1ff aligns with accent-blue */
+
+  /* UI polish */
+  --focus-ring: 0 209 255;           /* ring color for keyboard focus */
+  --divider: 60 63 71;               /* matches neutral-gray-700 */
+  --overlay-scrim: 0 0 0;            /* use with opacity for modals */
+
+  /* Optional extra arcade accents */
+  --arcade-purple: 191 0 255;        /* #bf00ff */
+  --arcade-red: 178 34 34;           /* #b22222 */
+}
+
+/* Example alternate theme for later
+[data-theme="bright"] {
+  --bg-app: 255 255 255;
+  --bg-panel: 240 242 245;
+  --fg-default: 21 22 26;
+  --fg-subtle: 60 63 71;
+}
+*/

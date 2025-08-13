@@ -1,12 +1,14 @@
 /*
  * File: src/index.css
- * Purpose: Global Tailwind layers, base resets, and Markade theme utilities (fonts, colors, a11y helpers).
+ * Purpose: Global Tailwind layers, base resets, and Markade theme utilities (fonts, colors, a11y).
  * Update Log:
- * - 2025-08-12: Added mk- prefixed text-color utilities to avoid collision with Tailwind font-family utilities. Kept legacy classes in place for now. — Assistant
+ * - 2025-08-13: Switched to semantic color utilities; added tokens import; unified focus ring; remapped mk-* helpers.
+ * - 2025-08-13: Tidy — moved imports before Tailwind layers, fixed ring offset class, removed empty .font-market utility.
  */
+
+/* Tokens & fonts first so utilities resolve CSS vars and font-families at runtime */
+@import "./theme/tokens.css";
 @import "./assets/fonts/fonts.css";
-/* Tailwind CSS layers for base, components, and utilities — Markade clean slate */
-/* --- Updated: 2025-08-07 — Remove radial gradients, use solid midnight background via theme token --- */
 
 @tailwind base;
 @tailwind components;
@@ -24,34 +26,23 @@
   }
 
   body {
-    /* Use theme token from tailwind.config.js */
-    @apply font-market text-white bg-background antialiased;
+    @apply font-market text-fg-default bg-app antialiased;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     -webkit-tap-highlight-color: transparent;
   }
 
-  :focus {
-    outline: none;
-  }
+  :focus { outline: none; }
 
+  /* Use default ring color from tailwind.config (focus-ring) + app offset */
   :focus-visible {
-    @apply ring-2 ring-neonBlue ring-offset-2 ring-offset-background;
+    @apply ring-2 ring-offset-2 ring-offset-app;
   }
 
   ::selection {
-    background: rgba(255, 215, 0, 0.25);
-  }
-
-  /* Respect reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    *:not([data-allow-motion]) {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-      scroll-behavior: auto !important;
-    }
+    /* use accent-yellow token at 25% */
+    background: rgb(var(--accent-yellow) / 0.25);
   }
 
   /* iOS safe-areas (used by .safe-area utility) */
@@ -64,28 +55,9 @@
 }
 
 @layer utilities {
-  /* Optional color-only helpers (use when you want to color text without changing fonts) */
-  .mk-text-arcade { @apply text-primary; }        /* Orange text for arcade display elements */
-  .mk-text-arcade-bold { @apply text-casinoYellow; } /* Casino yellow for punchy display text */
-  .mk-text-market { @apply text-white; }          /* Default market/body text color */
-  .mk-text-arcade-active { @apply text-neonBlue; }   /* Active state accent */
-
-  .font-arcade { @apply text-primary; } /* Orange */
-
-  .font-market { @apply text-white; }
 
   /* Accessibility: visually hidden but still in DOM */
-  .visually-hidden {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
-  }
+  .visually-hidden { @apply sr-only; }
 
   /* Crisp sprite rendering */
   .pixelated {
@@ -116,9 +88,5 @@
   /* Full-height sections that play nice with mobile keyboards */
   .min-h-dvh { min-height: 100dvh; }
 
-  /* Default: any arcade + bold text renders yellow */
-  .font-arcade.font-bold { @apply text-casinoYellow tracking-tight; }
-
-  /* Reusable display helper for big arcade headings */
-  .mk-arcade-display { @apply font-arcade font-bold !text-casinoYellow leading-none; }
+  .mk-arcade-display { @apply font-arcade font-bold leading-none tracking-tight; }
 }

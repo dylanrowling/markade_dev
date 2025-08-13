@@ -1,44 +1,47 @@
-// tailwind.config.js — updated [2025-08-12]
-/*
- * File: tailwind.config.js
- * Purpose: Tailwind configuration for Markade. Defines content paths, theme tokens, and font families.
- * Update Log:
- * - 2025-08-12: Unified Silkscreen under one family; kept temporary 'arcade-bold' alias mapped to Silkscreen for safe migration. — Assistant
- */
-// tailwind.config.js — updated [2025-08-06]
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js (tidy sketch)
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  safelist: [],
   theme: {
     extend: {
       fontFamily: {
-        market: ['"Market"', '"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'monospace'],
-        arcade: ['"Silkscreen"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-        // TEMP: keep until all `font-arcade-bold` usages are replaced with `font-arcade font-bold`
-        'arcade-bold': ['"Silkscreen"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+market: ['"Market"', '"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', 'monospace'],
+arcade: ['"Silkscreen"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', 'monospace'],
       },
       colors: {
-        background: "#1b1f23",     // Midnight navy base
-        surface: "#24292e",        // Cooler navy panels
-        text: "#ffffff",           // Default light text
-        textDim: "#9fb0c0",        // Secondary text
-        borderDim: "#2a3543",      // Gridlines only
-        profitGreen: "#00ff00",   // Terminal-style green
-        lossRed: "#ff3c3c",       // Terminal-style red
-        primary: "#00bfff",    // Bright neon blue
-        terminalOrange: "#ff6700", // Previous primary orange
-        neonBlue: "#00bfff",      // Neon triadic blue
-        neonPink: "#ff00bf",      // Neon triadic pink
-        casinoYellow: "#FFD700", // Gold slot-machine yellow
-        casinoRed: "#B22222", // Deep casino red for accents
+        // backgrounds
+        app: "rgb(var(--bg-app) / <alpha-value>)",       // -> bg-app
+        panel: "rgb(var(--bg-panel) / <alpha-value>)",   // -> bg-panel
+        // text
+        "fg-default": "rgb(var(--fg-default) / <alpha-value>)",
+        "fg-subtle": "rgb(var(--fg-subtle) / <alpha-value>)",
+        // accents
+        "accent-pink": "rgb(var(--accent-pink) / <alpha-value>)",
+        "accent-blue": "rgb(var(--accent-blue) / <alpha-value>)",
+        "accent-yellow": "rgb(var(--accent-yellow) / <alpha-value>)",
+        // borders
+        "divider": "rgb(var(--divider) / <alpha-value>)",
+        "border-default": "rgb(var(--border-default) / <alpha-value>)",
+        "border-accent": "rgb(var(--border-accent) / <alpha-value>)",
+        // states
+        "state-success": "rgb(var(--state-success) / <alpha-value>)",
+        "state-error": "rgb(var(--state-error) / <alpha-value>)",
+        "state-warning": "rgb(var(--state-warning) / <alpha-value>)",
+        "state-info": "rgb(var(--state-info) / <alpha-value>)",
+        // extras
+        "overlay-scrim": "rgb(var(--overlay-scrim) / <alpha-value>)",
+        "arcade-purple": "rgb(var(--arcade-purple) / <alpha-value>)",
+        "arcade-red": "rgb(var(--arcade-red) / <alpha-value>)",
       },
+      ringColor: {
+        DEFAULT: "rgb(var(--focus-ring) / <alpha-value>)",
+      },
+      borderRadius: { xl2: "1rem" },
+      boxShadow: { panel: "0 4px 24px rgba(0,0,0,0.3)" },
       backgroundImage: {
-        navyGradient: 'linear-gradient(to bottom, #0e1b2a, #0b1522)', // subtle header/panel depth
+        navyGradient: "linear-gradient(to bottom, #0e1b2a, #0b1522)",
       },
     },
   },
-  plugins: [],
-}
+  plugins: [], // remove bg-app/panel aliases to avoid confusion
+};
