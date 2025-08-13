@@ -5,7 +5,7 @@
  *  - 2025-08-12: Initial implementation (typography, buttons, panels, colors)
  *  - 2025-08-13: Align to semantic color tokens; remove legacy color names; runtime swatches from CSS vars; a11y + focus checks
  */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Panel from "../components/Panel";
 import SectionHeader from "../components/SectionHeader";
 import Button from "../components/Button";
@@ -14,7 +14,7 @@ import ColorPanel from "../components/ColorPanel";
 /* ---------- semantic-only button matrices ---------- */
 const BUTTON_VARIANTS = [
   { heading: "Arcade Variants", items: ["arcade1", "arcade2"] as const },
-  { heading: "Default Variants", items: ["default1", "default2"] as const },
+  { heading: "Neutral Variants", items: ["default", "subtle"] as const },
 ] as const;
 const SIZES = ["sm", "md", "lg"] as const;
 
@@ -55,10 +55,16 @@ function cssVarToHex(name: string): string {
 }
 
 function Swatch({ varName }: { varName: string }) {
-  const rgb = getComputedStyle(document.documentElement)
-    .getPropertyValue(`--${varName}`)
-    .trim();
-  const hex = cssVarToHex(varName);
+  const [rgb, setRgb] = useState<string>("");
+  const [hex, setHex] = useState<string>("");
+
+  useEffect(() => {
+    const style = getComputedStyle(document.documentElement);
+    const rgbVal = style.getPropertyValue(`--${varName}`).trim();
+    setRgb(rgbVal);
+    setHex(cssVarToHex(varName));
+  }, [varName]);
+
   return (
     <div className="flex items-center gap-3">
       <div
@@ -82,13 +88,13 @@ export default function UiPlayground() {
         <SectionHeader title="Typography" subtitle="Font stacks & scales" />
         <div className="space-y-3">
           <div>
-            <div className="mk-arcade-display text-4xl tracking-tight text-accent-pink">Arcade Bold</div>
-            <div className="font-arcade text-2xl text-accent-blue">Arcade Regular</div>
+            <h3 className="mk-arcade-display text-4xl tracking-tight text-accent-pink">Arcade Bold</h3>
+            <h4 className="font-arcade text-2xl text-accent-blue">Arcade Regular</h4>
           </div>
 
           <div>
-            <div className="font-market font-bold tracking-normal text-2xl">Market Header</div>
-            <div className="font-market text-base text-fg-subtle">Body copy — Market</div>
+            <h3 className="font-market font-bold tracking-normal text-2xl">Market Header</h3>
+            <p className="font-market text-base text-fg-subtle">Body copy — Market</p>
           </div>
 
           {/* Font size scale block */}
@@ -97,7 +103,7 @@ export default function UiPlayground() {
             <div className="space-y-3">
               {/* Arcade Bold */}
               <div>
-                <div className="text-fg-subtle text-xs mb-1">Arcade Bold</div>
+                <h4 className="text-fg-subtle text-xs mb-1">Arcade Bold</h4>
                 <div className="flex flex-wrap gap-4 items-end">
                   {["text-base","text-lg","text-xl","text-2xl"].map((sz) => (
                     <span key={`ab-${sz}`} className={`font-arcade font-bold ${sz}`}>
@@ -109,7 +115,7 @@ export default function UiPlayground() {
 
               {/* Arcade Regular */}
               <div>
-                <div className="text-fg-subtle text-xs mb-1">Arcade Regular</div>
+                <h4 className="text-fg-subtle text-xs mb-1">Arcade Regular</h4>
                 <div className="flex flex-wrap gap-4 items-end">
                   {["text-base","text-lg","text-xl","text-2xl"].map((sz) => (
                     <span key={`ar-${sz}`} className={`font-arcade ${sz}`}>
@@ -121,7 +127,7 @@ export default function UiPlayground() {
 
               {/* Market Header */}
               <div>
-                <div className="text-fg-subtle text-xs mb-1">Market Header</div>
+                <h4 className="text-fg-subtle text-xs mb-1">Market Header</h4>
                 <div className="flex flex-wrap gap-4 items-end">
                   {["text-base","text-lg","text-xl","text-2xl"].map((sz) => (
                     <span key={`mh-${sz}`} className={`font-market font-bold tracking-normal ${sz}`}>
@@ -133,7 +139,7 @@ export default function UiPlayground() {
 
               {/* Market Body */}
               <div>
-                <div className="text-fg-subtle text-xs mb-1">Market Body</div>
+                <h4 className="text-fg-subtle text-xs mb-1">Market Body</h4>
                 <div className="flex flex-wrap gap-4 items-end">
                   {["text-base","text-lg","text-xl","text-2xl"].map((sz) => (
                     <span key={`mb-${sz}`} className={`font-market text-fg-subtle ${sz}`}>
@@ -188,24 +194,24 @@ export default function UiPlayground() {
       <div className="xl:col-span-2 space-y-3">
         <SectionHeader title="Color Panels" subtitle="Yellow / Blue / Pink rails" />
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-          <ColorPanel tone="yellow" label="News">
+          <ColorPanel tone="yellow" label="NEWS">
             <h3>MARKET WRAP</h3>
-            <p className="font-market text-fg-subtle">Futures point higher ahead of CPI…, also let's test how the panels respond to long text</p>
+            <p className="font-market text-fg-default">Futures point higher ahead of CPI…, also let's test how the panels respond to long text</p>
           </ColorPanel>
 
-          <ColorPanel tone="blue" label="Prices">
+          <ColorPanel tone="blue" label="PRICES">
             <h3>PLAYER 1</h3>
-            <p className="font-market text-fg-subtle">Score: 7,832</p>
+            <p className="font-market text-fg-default">Score: 7,832</p>
           </ColorPanel>
 
-          <ColorPanel tone="pink" label="Roster">
+          <ColorPanel tone="pink" label="ROSTER">
             <h3>LINEUP</h3>
-            <p className="font-market text-fg-subtle">Draft opens Friday</p>
+            <p className="font-market text-fg-default">Draft opens Friday</p>
           </ColorPanel>
 
           <ColorPanel tone="white" label="RAIL HEIGHT TEST">
             <h3>RAIL HEIGHT TEST</h3>
-            <p className="font-market text-fg-subtle">Arcade Bold rail label.</p>
+            <p className="font-market text-fg-default">Arcade Bold rail label.</p>
           </ColorPanel>
         </div>
       </div>

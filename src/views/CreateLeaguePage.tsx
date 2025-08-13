@@ -50,43 +50,43 @@ const CreateLeaguePage = () => {
   };
 
   return (
-    <div className="text-white bg-black min-h-screen flex flex-col items-center justify-center px-4">
-      <h1 className="text-3xl font-bold mb-6">Create a League</h1>
+    <div className="text-fg-default bg-panel min-h-screen flex flex-col items-center justify-center px-4">
+      <h1 className="font-market text-3xl font-bold mb-6">Create a League</h1>
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
         <input
           type="text"
           placeholder="League Name"
           value={leagueName}
           onChange={(e) => setLeagueName(e.target.value)}
-          className="w-full px-4 py-2 rounded bg-gray-800 text-white"
+          className="w-full px-4 py-2 border border-divider rounded-none bg-panel text-fg-default"
         />
         <input
           type="number"
           placeholder="Max Players"
           value={maxPlayers}
           onChange={(e) => setMaxPlayers(Number(e.target.value))}
-          className="w-full px-4 py-2 rounded bg-gray-800 text-white"
+          className="w-full px-4 py-2 border border-divider rounded-none bg-panel text-fg-default"
         />
         <input
           type="datetime-local"
           placeholder="Draft Date & Time"
           value={draftDateTime}
           onChange={(e) => setDraftDateTime(e.target.value)}
-          className="w-full px-4 py-2 rounded bg-gray-800 text-white"
+          className="w-full px-4 py-2 border border-divider rounded-none bg-panel text-fg-default"
         />
         <input
           type="number"
           placeholder="Draft Duration (min)"
           value={draftDuration}
           onChange={(e) => setDraftDuration(Number(e.target.value))}
-          className="w-full px-4 py-2 rounded bg-gray-800 text-white"
+          className="w-full px-4 py-2 border border-divider rounded-none bg-panel text-fg-default"
         />
-        <Button type="submit" variant="arcade2">
+        <Button type="submit" variant="arcade1">
           Create League
         </Button>
       </form>
       <div className="mt-4">
-        <Button variant="default1" onClick={() => navigate('/dashboard')}>
+        <Button variant="default" onClick={() => navigate('/dashboard')}>
           Back to Dashboard
         </Button>
       </div>

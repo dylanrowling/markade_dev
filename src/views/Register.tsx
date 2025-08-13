@@ -22,7 +22,7 @@ export default function Register() {
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
-  if (loading) return <p className="text-white">Loading...</p>;
+  if (loading) return <p className="font-market text-fg-default">Loading...</p>;
   if (user) return <Navigate to={from} replace />;
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -68,14 +68,14 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
-      <h1 className="text-3xl font-market-header mb-6 text-fuchsia-500">Create your Markade Account</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-panel text-fg-default">
+      <h1 className="font-market text-3xl font-bold mb-6 text-accent-pink">Create your Markade Account</h1>
       <form onSubmit={handleRegister} className="flex flex-col gap-4 w-80">
         <input
           type="text"
           placeholder="Display Name"
           autoComplete="nickname"
-          className="p-2 text-black rounded font-market"
+          className="p-2 border border-divider bg-panel text-fg-default rounded-none font-market"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           required
@@ -84,7 +84,7 @@ export default function Register() {
           type="email"
           placeholder="Email"
           autoComplete="email"
-          className="p-2 text-black rounded font-market"
+          className="p-2 border border-divider bg-panel text-fg-default rounded-none font-market"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -93,17 +93,17 @@ export default function Register() {
           type="password"
           placeholder="Password"
           autoComplete="new-password"
-          className="p-2 text-black rounded font-market"
+          className="p-2 border border-divider bg-panel text-fg-default rounded-none font-market"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button type="submit" variant="default2" disabled={pending}>
+        <Button type="submit" variant="default" disabled={pending}>
           {pending ? "Registering..." : "Register"}
         </Button>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {error && <p className="text-state-error text-sm font-market">{error}</p>}
       </form>
-      <Button variant="default1" onClick={() => navigate("/login")}>
+      <Button variant="default" onClick={() => navigate("/login")}>
         Back to Login
       </Button>
     </div>

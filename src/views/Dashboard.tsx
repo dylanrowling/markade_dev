@@ -20,7 +20,7 @@ export default function Dashboard() {
     ["AAPL", "GOOGL", "MSFT"]
   );
 
-  if (loading) return <p className="text-text">Loading...</p>;
+  if (loading) return <p className="font-market text-fg-default">Loading...</p>;
 
   useEffect(() => {
     const fetchLeagues = async () => {
@@ -64,10 +64,10 @@ export default function Dashboard() {
           {leagues.length > 0 ? (
             <ul className="space-y-2">
               {leagues.map((league) => (
-                <li key={league.id} className="border border-borderDim rounded p-2">
+                <li key={league.id} className="border border-divider rounded-none p-2">
                   <Link
                     to={`/league/${league.id}`}
-                    className="text-neonPink hover:underline font-arcade text-xl tracking-wide"
+                    className="text-accent-pink hover:underline font-arcade text-xl tracking-wide"
                   >
                     {league.title || league.leagueName || "Unnamed League"}
                   </Link>
@@ -75,14 +75,14 @@ export default function Dashboard() {
               ))}
             </ul>
           ) : (
-            <p className="text-textDim font-market">You are not in any leagues yet.</p>
+            <p className="font-market text-fg-default">You are not in any leagues yet.</p>
           )}
 
           <div className="mt-4 flex flex-wrap gap-3">
             <Button onClick={handleCreateLeague} variant="arcade2">
               Create League
             </Button>
-            <Button onClick={handleLogout} variant="default1">
+            <Button onClick={handleLogout} variant="default">
               Log Out {user?.email ? `(${user.email})` : ""}
             </Button>
           </div>
@@ -92,24 +92,24 @@ export default function Dashboard() {
       {/* Roster placeholder */}
       <Panel>
         <SectionHeader title="Roster" subtitle="Your current lineup" />
-        <p className="text-textDim">Coming soon.</p>
+        <p className="font-market text-fg-default">Coming soon.</p>
       </Panel>
 
       {/* Upcoming Matchup placeholder */}
       <Panel>
         <SectionHeader title="Upcoming Matchup" subtitle="Your week at a glance" />
-        <p className="text-textDim">Coming soon.</p>
+        <p className="font-market text-fg-default">Coming soon.</p>
       </Panel>
 
       {/* Market Pings (Live Quotes) */}
       <Panel className="xl:col-span-2">
         <SectionHeader title="Market Pings" subtitle="Live quotes (mock or Finnhub)" />
         {quotesLoading && <p aria-live="polite">Loading quotes…</p>}
-        {quotesError && <p aria-live="polite" className="text-lossRed">{quotesError}</p>}
+        {quotesError && <p aria-live="polite" className="text-state-error">{quotesError}</p>}
         {!quotesLoading && !quotesError && (
           <table className="w-full border-collapse">
             <thead>
-              <tr className="text-left border-b border-borderDim">
+              <tr className="text-left border-b border-divider">
                 <th scope="col" className="py-2">Ticker</th>
                 <th scope="col" className="py-2">Price</th>
                 <th scope="col" className="py-2">Change %</th>
@@ -118,10 +118,10 @@ export default function Dashboard() {
             </thead>
             <tbody>
               {(quotes ?? []).map((q) => (
-                <tr key={q.ticker} className="border-b border-borderDim/50">
+                <tr key={q.ticker} className="border-b border-divider/50">
                   <td className="py-2">{q.ticker}</td>
                   <td className="py-2">{q.price.toFixed(2)}</td>
-                  <td className={`py-2 ${q.changePct >= 0 ? "text-profitGreen" : "text-lossRed"}`}>
+                  <td className={`py-2 ${q.changePct >= 0 ? "text-state-success" : "text-state-error"}`}>
                     {q.changePct.toFixed(2)}
                   </td>
                   <td className="py-2">{new Date(q.ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</td>
@@ -130,7 +130,7 @@ export default function Dashboard() {
             </tbody>
           </table>
         )}
-        <p className="text-xs text-textDim mt-2">
+        <p className="text-xs text-fg-subtle mt-2">
           Data source controlled by <code>VITE_STOCKS_PROVIDER</code>.
         </p>
       </Panel>

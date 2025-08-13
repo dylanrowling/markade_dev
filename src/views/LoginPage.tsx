@@ -17,7 +17,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
-  if (loading) return <p className="text-white">Loading...</p>;
+if (loading) return <p className="font-market text-fg-default">Loading...</p>;
   if (user) return <Navigate to={from} replace />;
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -38,13 +38,13 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-panel text-fg-default">
       <form onSubmit={handleLogin} className="space-y-4 text-center">
-        <h1 className="text-xl font-market-header">Log in to Markade</h1>
+        <h1 className="font-market text-2xl font-bold">Log in to Markade</h1>
         <input
           type="email"
           autoComplete="email"
-          className="bg-gray-800 px-4 py-2 rounded font-market"
+          className="border border-divider bg-panel px-4 py-2 rounded-none font-market"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
@@ -53,18 +53,18 @@ const Login = () => {
         <input
           type="password"
           autoComplete="current-password"
-          className="bg-gray-800 px-4 py-2 rounded font-market"
+          className="border border-divider bg-panel px-4 py-2 rounded-none font-market"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
         <br />
-        <Button type="submit" variant="default2" disabled={pending}>
+        <Button type="submit" variant="default" disabled={pending}>
           {pending ? "Logging In..." : "Log In"}
         </Button>
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-state-error font-market">{error}</p>}
       </form>
-      <Button variant="default1" onClick={() => navigate("/")}>Back to Landing</Button>
+      <Button variant="default" onClick={() => navigate("/")}>Back to Landing</Button>
     </div>
   );
 };

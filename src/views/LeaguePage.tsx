@@ -36,15 +36,15 @@ export default function LeaguePage() {
     fetchLeague();
   }, [leagueId]);
 
-  if (loading) return <div className="text-white p-4">Loading League...</div>;
-  if (!league) return <div className="text-white p-4">League not found.</div>;
+  if (loading) return <div className="font-market text-fg-default p-4">Loading League...</div>;
+  if (!league) return <div className="font-market text-fg-default p-4">League not found.</div>;
 
   const isCommissioner = league.commissionerId === user?.uid;
 
   return (
-    <div className="text-white min-h-screen bg-black flex flex-col items-center gap-6 p-6">
-      <h1 className="text-3xl font-arcade-header">{league.title}</h1>
-      <p className="text-sm text-gray-400 font-market">League ID: {league.id}</p>
+    <div className="text-fg-default min-h-screen bg-panel flex flex-col items-center gap-6 p-6">
+      <h1 className="mk-arcade-display text-3xl">{league.title}</h1>
+      <p className="text-sm text-fg-subtle font-market">League ID: {league.id}</p>
       <p className="font-market">
         Draft Date:{' '}
         {league.draftDateTime?.seconds
@@ -63,7 +63,7 @@ export default function LeaguePage() {
           ))}
         </ul>
       </div>
-      <Button onClick={() => navigate('/dashboard')} variant="default1">
+      <Button onClick={() => navigate('/dashboard')} variant="default">
         Back to Dashboard
       </Button>
     </div>
