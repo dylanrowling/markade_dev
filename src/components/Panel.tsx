@@ -1,6 +1,4 @@
-
-
-/**
+/****
  * Panel.tsx
  * Purpose: Shared surface wrapper for consistent cards and panels across Markade.
  * Update Log:
@@ -15,7 +13,7 @@ type PanelProps = React.HTMLAttributes<HTMLElement> & {
 };
 
 export default function Panel({ className = '', children, ...rest }: PanelProps) {
-  const base = 'bg-surface border border-borderDim rounded-2xl p-3 sm:p-4';
+  const base = 'bg-surface border-4 border-white rounded-none p-3 sm:p-4';
   return (
     <section className={`${base} ${className}`} {...rest}>
       {children}

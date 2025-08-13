@@ -21,14 +21,15 @@ module.exports = {
         'arcade-bold': ['"Silkscreen"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
       colors: {
-        background: "#0e1b2a",     // Midnight navy base
-        surface: "#132235",        // Cooler navy panels
+        background: "#1b1f23",     // Midnight navy base
+        surface: "#24292e",        // Cooler navy panels
         text: "#ffffff",           // Default light text
         textDim: "#9fb0c0",        // Secondary text
-        borderDim: "#2a3543",      // Dim borders / gridlines
+        borderDim: "#2a3543",      // Gridlines only
         profitGreen: "#00ff00",   // Terminal-style green
         lossRed: "#ff3c3c",       // Terminal-style red
-        primary: "#ff6700",    // Primary in-game orange
+        primary: "#00bfff",    // Bright neon blue
+        terminalOrange: "#ff6700", // Previous primary orange
         neonBlue: "#00bfff",      // Neon triadic blue
         neonPink: "#ff00bf",      // Neon triadic pink
         casinoYellow: "#FFD700", // Gold slot-machine yellow

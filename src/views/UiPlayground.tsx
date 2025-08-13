@@ -8,10 +8,11 @@ import React from "react";
 import Panel from "../components/Panel";
 import SectionHeader from "../components/SectionHeader";
 import Button from "../components/Button";
+import ColorPanel from "../components/ColorPanel";
 
-const Swatch: React.FC<{ name: string; className: string }> = ({ name, className }) => (
+const Swatch: React.FC<{ name: string; className: string; borderClass?: string }> = ({ name, className, borderClass = "border-borderDim" }) => (
   <div className="flex items-center gap-3">
-    <div className={`w-10 h-10 rounded border border-borderDim ${className}`} />
+    <div className={`w-10 h-10 rounded border ${borderClass} ${className}`} />
     <span className="text-sm text-textDim">{name}</span>
   </div>
 );
@@ -126,16 +127,44 @@ const UiPlayground: React.FC = () => {
         <p className="text-textDim">Use this combo for every dashboard section.</p>
       </Panel>
 
+      {/* Triad Panels */}
+      <div className="xl:col-span-2 space-y-3">
+        <SectionHeader title="Color Panels" subtitle="Yellow / Blue / Pink rails" />
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <ColorPanel tone="yellow" label="News">
+            <h3>MARKET WRAP</h3>
+            <p className="font-market text-textDim">Futures point higher ahead of CPI…</p>
+          </ColorPanel>
+
+          <ColorPanel tone="blue" label="Prices">
+            <h3>PLAYER 1</h3>
+            <p className="font-market text-textDim">Score: 7,832</p>
+          </ColorPanel>
+
+          <ColorPanel tone="pink" label="Roster">
+            <h3>LINEUP</h3>
+            <p className="font-market text-textDim">Draft opens Friday</p>
+          </ColorPanel>
+        </div>
+      </div>
+
       {/* Color tokens */}
       <Panel>
         <SectionHeader title="Colors" subtitle="Theme tokens" />
         <div className="grid grid-cols-2 gap-3">
+          <Swatch name="primary (neon blue)" className="bg-primary" />
+          <Swatch name="accentBold (neon pink)" className="bg-accentBold" />
           <Swatch name="casinoYellow" className="bg-casinoYellow" />
+          <Swatch name="casinoPurple" className="bg-casinoPurple" />
+          <Swatch name="terminalOrange" className="bg-terminalOrange" />
           <Swatch name="neonBlue" className="bg-neonBlue" />
           <Swatch name="neonPink" className="bg-neonPink" />
           <Swatch name="profitGreen" className="bg-profitGreen" />
           <Swatch name="lossRed" className="bg-lossRed" />
           <Swatch name="surface" className="bg-surface" />
+          <Swatch name="background" className="bg-background" />
+          <Swatch name="borderDim (gridlines)" className="bg-borderDim" borderClass="border-white" />
+          <Swatch name="borderAccent (yellow)" className="bg-borderAccent" borderClass="border-borderDim" />
         </div>
       </Panel>
 

@@ -6,22 +6,42 @@
 
 import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type CommonButtonProps = {
   variant?: 'default1' | 'default2' | 'arcade1' | 'arcade2' | 'confirm' | 'cancel' | 'back';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
   children: React.ReactNode;
-}
+  className?: string;
+  /** shared so destructuring works for both anchor and button branches */
+  disabled?: boolean;
+  /** shared so destructuring doesn't error when as='button'; still required on link props */
+  href?: string;
+};
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+type ButtonNativeProps = CommonButtonProps &
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
+    as?: 'button';
+  };
+
+type ButtonLinkProps = CommonButtonProps &
+  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'children' | 'type'> & {
+    as: 'a';
+    href: string;
+  };
+
+type ButtonProps = ButtonNativeProps | ButtonLinkProps;
+
+const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(function Button(
   {
     variant = 'default1',
     size = 'md',
     isLoading = false,
     children,
     className = '',
-    type,
+    // type, // REMOVED from destructuring
     disabled,
+    as = 'button',
+    href,
     ...props
   },
   ref
@@ -32,71 +52,104 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     'rounded font-semibold',
     'transition-colors duration-700 ease-out hover:duration-0',
     'focus:outline-none focus:ring-2 focus:ring-borderDim focus:ring-offset-0',
-    'border-2 border-white',
+    'border border-white',
+    'touch-manipulation',
+    'outline-none',
+    'tap-highlight-transparent',
     'disabled:opacity-60 disabled:cursor-not-allowed',
   ].join(' ');
 
   // Variant look & feel (using your theme tokens)
   const variantClasses: Record<string, string> = {
     default1:
-      'font-market bg-transparent hover:bg-white hover:text-background active:bg-neonBlue active:text-background',
+      'font-market bg-transparent hover:bg-white hover:text-background focus:bg-white focus:text-background active:bg-accentBold active:text-background',
     default2:
-      'font-market font-bold bg-transparent hover:bg-white hover:text-background active:bg-neonBlue active:text-background',
+      'font-market font-bold bg-transparent hover:bg-white hover:text-background focus:bg-white focus:text-background active:bg-accentBold active:text-background',
     arcade1:
-      'font-arcade bg-transparent hover:bg-primary hover:text-black active:bg-neonBlue active:text-background',
+      'font-arcade bg-transparent hover:bg-primary hover:text-black focus:bg-primary focus:text-black active:bg-accentBold active:text-background',
     arcade2:
-      'font-arcade font-bold bg-transparent hover:bg-casinoYellow hover:text-background active:bg-neonBlue active:text-background',
+      'font-arcade font-bold bg-transparent hover:bg-casinoYellow hover:text-background focus:bg-casinoYellow focus:text-background active:bg-accentBold active:text-background',
     confirm:
-      'font-market bg-profitGreen !text-black hover:bg-white hover:!text-black active:bg-neonBlue active:text-background',
+      'font-market bg-profitGreen !text-black hover:bg-white hover:!text-black focus:bg-white focus:!text-black active:bg-accentBold active:text-background',
     cancel:
-      'font-market bg-lossRed text-background hover:bg-white hover:text-black active:bg-neonBlue active:text-background',
+      'font-market bg-lossRed text-background hover:bg-white hover:text-black focus:bg-white focus:text-black active:bg-accentBold active:text-background',
     back:
-      'font-market bg-transparent text-white hover:bg-white hover:text-black active:bg-neonBlue active:text-background',
+      'font-market bg-transparent text-white hover:bg-white hover:text-black focus:bg-white focus:text-black active:bg-accentBold active:text-background',
   };
 
   // Size system — ensures comfortable tap targets; does not override variant padding
   const sizeClasses = {
-    sm: 'text-sm leading-none px-4 py-2.5',
-    md: 'text-base leading-none px-5 py-3',
-    lg: 'text-xl leading-none px-6 py-3.5',
+    sm: 'text-sm leading-none px-4 py-2.5 border',
+    md: 'text-base leading-none px-5 py-3 border',
+    lg: 'text-xl leading-none px-6 py-3.5 border',
   } as const;
 
   const isDisabled = disabled || isLoading;
-  const btnType = type ?? 'button'; // default to non-submit unless specified
+  const maybeBtnType = (props as React.ButtonHTMLAttributes<HTMLButtonElement>).type;
+  const btnType: React.ButtonHTMLAttributes<HTMLButtonElement>['type'] = maybeBtnType ?? 'button';
 
   return (
     <div
-      className={`inline-block w-max p-[3px] border-2 border-white transition-all duration-150 ${
+      className={`inline-block w-max p-[3px] border border-white transition-all duration-150 ${
         isDisabled ? 'pointer-events-none' : 'group'
       }`}
       aria-disabled={isDisabled || undefined}
     >
-      <button
-        ref={ref}
-        type={btnType}
-        aria-busy={isLoading || undefined}
-        disabled={isDisabled}
-        className={`${baseStyles} ${variantClasses[variant] || variantClasses.default1} ${
-          sizeClasses[size]
-        } ${className}`}
-        {...props}
-      >
-        {isLoading && (
-          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-              fill="none"
-            />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
-          </svg>
-        )}
-        {children}
-      </button>
+      {as === 'a' ? (
+        <a
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          href={href}
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : 0}
+          className={`${baseStyles} ${variantClasses[variant] || variantClasses.default1} ${
+            sizeClasses[size]
+          } ${className}`}
+          {...(props as Omit<ButtonLinkProps, 'as' | 'href' | 'children'>)}
+        >
+          {isLoading && (
+            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+                fill="none"
+              />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+            </svg>
+          )}
+          {children}
+        </a>
+      ) : (
+        <button
+          ref={ref as React.Ref<HTMLButtonElement>}
+          type={btnType}
+          aria-busy={isLoading || undefined}
+          disabled={isDisabled}
+          className={`${baseStyles} ${variantClasses[variant] || variantClasses.default1} ${
+            sizeClasses[size]
+          } ${className}`}
+          {...(props as Omit<ButtonNativeProps, 'as' | 'children'>)}
+        >
+          {isLoading && (
+            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+                fill="none"
+              />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+            </svg>
+          )}
+          {children}
+        </button>
+      )}
     </div>
   );
 });
