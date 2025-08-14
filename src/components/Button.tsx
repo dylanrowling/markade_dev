@@ -3,7 +3,7 @@
 // 🕒 2025-08-06 — Initial creation with support for variants and disabled state
 // 🕒 2025-08-12 — Add size prop (sm|md|lg), loading state, default type, a11y polish
 // 🕒 2025-08-12 — Forward ref, pointer-events when disabled, DRY rounded
-// 🕒 2025-08-15 — Modernized with semantic tokens, cleaned variants, single wrapper, cx helper
+// 🕒 2025-08-13 — Modernized with semantic tokens, cleaned variants, single wrapper, cx helper
 
 import React from 'react';
 

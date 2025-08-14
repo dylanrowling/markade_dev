@@ -1,12 +1,11 @@
 // Navbar.tsx — Top nav for auth actions
 // 2025-08-13 Modernized to semantic tokens + gated dev links
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { useAuthContext } from "../providers/AuthProvider";
 import Button from "./Button";
 
 export default function Navbar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuthContext();
   const navigate = useNavigate();
   const showPlayground = import.meta.env.VITE_SHOW_PLAYGROUND === "1";
 
@@ -39,7 +38,16 @@ export default function Navbar() {
           {user ? (
             <>
               {/* Keep this simple for now; swap to a menu later if needed */}
-              <Button as="a" href="/logout" variant="subtle" size="sm" title="Log out">
+              <Button
+                as="button"
+                onClick={async () => {
+                  await logout();
+                  navigate("/");
+                }}
+                variant="subtle"
+                size="sm"
+                title="Log out"
+              >
                 {user.displayName || user.email}
               </Button>
             </>

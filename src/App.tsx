@@ -6,13 +6,15 @@ import Shell from './components/Shell';
 import Landing from './views/Landing';
 import Login from './views/LoginPage';
 import Register from './views/Register';
-import Dashboard from './views/Dashboard.tsx'; // placeholder if needed
-import CreateLeaguePage from './views/CreateLeaguePage.tsx';
+import Dashboard from './views/Dashboard';
+import CreateLeaguePage from './views/CreateLeaguePage';
 import LeaguePage from './views/LeaguePage';
 import UiPlayground from './views/UiPlayground';
 import GridPlayground from './views/GridPlayground';
 
 function App() {
+  const showPlayground = import.meta.env.VITE_SHOW_PLAYGROUND === "1";
+
   return (
     <Routes>
       <Route element={<Shell />}>
@@ -26,9 +28,14 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-league" element={<CreateLeaguePage />} />
           <Route path="/league/:leagueId/*" element={<LeaguePage />} />
-          <Route path="/playground" element={<UiPlayground />} />
-          <Route path="/grid-playground" element={<GridPlayground />} />
+          {showPlayground && (
+            <>
+              <Route path="/playground" element={<UiPlayground />} />
+              <Route path="/grid-playground" element={<GridPlayground />} />
+            </>
+          )}
         </Route>
+        <Route path="*" element={<Landing />} />
       </Route>
     </Routes>
   );

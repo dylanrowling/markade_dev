@@ -3,6 +3,7 @@
 // 2025-08-06 Initial pass-through
 // 2025-08-07 Return full context API
 // 2025-08-11 Add named export and explicit return type
+// 2025-08-13 Simplify: delegate all actions to AuthProvider; remove local handleLogout
 
 import { useAuthContext } from '../providers/AuthProvider';
 
