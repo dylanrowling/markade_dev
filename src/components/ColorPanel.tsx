@@ -60,11 +60,17 @@ const ColorPanel = forwardRef<HTMLDivElement, ColorPanelProps>(function ColorPan
     minHeight = "120px",
     paddingClass = "p-6",
     ariaLabel,
-    fit = "auto",
+    fit = "fill",
   },
   ref
 ) {
   const theme = toneClasses[tone];
+
+  // Geometry constants: keep the mid-line exactly centered in the gap
+  const OUTER_BORDER = 3; // px — matches `border-4` on the outer container
+  const GAP = 2;          // px — distance between outer and inner borders (inset 4px vs 8px)
+  const MID_LINE = 1;     // px — thickness of the hover line (border-2)
+  const midInset = OUTER_BORDER + (GAP - MID_LINE) / 2; // -> 5px, centers the 2px line in a 4px gap
 
   // Force arcade headings to match tone color
   const forcedTextClass =
@@ -132,15 +138,18 @@ const ColorPanel = forwardRef<HTMLDivElement, ColorPanelProps>(function ColorPan
       </div>
 
       {/* Content wrapper with inset borders (auto-sizes to children) */}
-      <div className={cx("relative", fit === "fill" && "flex-1 w-full h-full")}>
-        {/* Middle inset border: appears on hover/focus-within only (snap in, slow out) */}
-        <div className="pointer-events-none absolute inset-[2px_2px_3px_2px] rounded-[2px] border-2 border-fg-default opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-700 group-hover:duration-0 group-focus-within:duration-0 ease-out motion-reduce:transition-none z-0" />
+      <div className={cx("relative flex-1 min-w-0", fit === "fill" && "w-full h-full")}>
+        {/* Mid-gap hover line: perfectly centered between outer (4px) and inner (8px) borders */}
+        <div
+          className="pointer-events-none absolute rounded-[2px] border-2 border-fg-default opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-700 group-hover:duration-0 group-focus-within:duration-0 ease-out motion-reduce:transition-none z-0"
+          style={{ inset: `${midInset}px` }}
+        />
 
         {/* Inner inset border keyed to tone: always visible, no hover change */}
-        <div className={cx(theme.border, "border-2 rounded-[3px] absolute inset-[6px] pointer-events-none z-10")} />
+        <div className={cx(theme.border, "border-2 rounded-[2px] absolute inset-[8px] pointer-events-none z-10")} />
 
         {/* Inner panel (auto-size) */}
-        <div className={cx("relative z-10 transition-colors duration-700 ease-out motion-reduce:transition-none text-fg-default", paddingClass, fit === "fill" && "w-full h-full")}>
+        <div className={cx("relative z-10 w-full transition-colors duration-700 ease-out motion-reduce:transition-none text-fg-default", paddingClass, fit === "fill" && "h-full")}>
           {Children.map(children, colorizeHeadings)}
         </div>
       </div>

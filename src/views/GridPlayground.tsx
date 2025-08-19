@@ -8,9 +8,46 @@ import { regionTitle } from "../theme/semantics";
 export default function GridPlayground() {
   return (
     <div className="space-y-6">
+      {/* C. TV-style fixed tracks (fill slots, use spans) */}
+      <Panel>
+        <SectionHeader title="A) TV-Style Grid" subtitle="auto-fit minmax cols + fixed row height + fit='fill' + spans" />
+        <PanelGrid
+          cols="grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(22rem,1fr))]"
+          rowHeight="auto-rows-auto md:auto-rows-[14rem]"
+        >
+          <section role="region" aria-label={regionTitle("news")}>
+            <WidgetPanel region="news" fit="fill" toneOverride="yellow">
+              <h3>MARKET WRAP</h3>
+              <p className="font-market text-fg-default">Longer blurb goes here…</p>
+            </WidgetPanel>
+          </section>
+
+          <section role="region" aria-label={regionTitle("rosters")} className="row-span-2">
+            <WidgetPanel region="rosters" fit="fill" toneOverride="pink">
+              <h3>LINEUP</h3>
+              <p className="font-market text-fg-default">Multiple rows will stretch this vertically</p>
+            </WidgetPanel>
+          </section>
+
+          <section role="region" aria-label={regionTitle("matchups")}>
+            <WidgetPanel region="matchups" fit="fill" toneOverride="white">
+              <h3>WHITE RAIL</h3>
+              <p className="font-market text-fg-default">Arcade Bold rail label.</p>
+            </WidgetPanel>
+          </section>
+
+          <section role="region" aria-label={regionTitle("tickers")} className="col-span-2">
+            <WidgetPanel region="tickers" fit="fill" toneOverride="blue">
+              <h3>PLAYER 1</h3>
+              <p className="font-market text-fg-default">Score: 7,832</p>
+            </WidgetPanel>
+          </section>
+        </PanelGrid>
+      </Panel>
+
       {/* A. Content-sized row (flex) */}
       <Panel>
-        <SectionHeader title="A) Content-sized Row" subtitle="flex + fit='auto' (panels shrink-wrap)" />
+        <SectionHeader title="B) Content-sized Row" subtitle="flex + fit='auto' (panels shrink-wrap)" />
         <div className="flex flex-wrap items-start gap-4">
           {/* Experiment freely with tones via toneOverride; semantics stay centralized */}
           <section role="region" aria-label={regionTitle("news")}>
@@ -33,7 +70,7 @@ export default function GridPlayground() {
 
       {/* B. Content-sized stack (grid, no stretch) */}
       <Panel>
-        <SectionHeader title="B) Content-sized Stack" subtitle="grid + auto-rows-max + place-items-start + fit='auto'" />
+        <SectionHeader title="C) Content-sized Stack" subtitle="grid + auto-rows-max + place-items-start + fit='auto'" />
         <div className="grid gap-4 auto-rows-max place-items-start">
           <section role="region" aria-label={regionTitle("rosters")}>
             <WidgetPanel region="rosters" toneOverride="pink" fit="auto">
@@ -49,40 +86,6 @@ export default function GridPlayground() {
             </WidgetPanel>
           </section>
         </div>
-      </Panel>
-
-      {/* C. TV-style fixed tracks (fill slots, use spans) */}
-      <Panel>
-        <SectionHeader title="C) TV-Style Grid" subtitle="auto-fit minmax cols + fixed row height + fit='fill' + spans" />
-        <PanelGrid cols="grid-cols-[repeat(auto-fit,minmax(22rem,1fr))]" rowHeight="auto-rows-[14rem]">
-          <section role="region" aria-label={regionTitle("news")}>
-            <WidgetPanel region="news" fit="fill" toneOverride="yellow">
-              <h3>MARKET WRAP</h3>
-              <p className="font-market text-fg-default">Longer blurb goes here…</p>
-            </WidgetPanel>
-          </section>
-
-          <section role="region" aria-label={regionTitle("rosters")} className="row-span-2">
-            <WidgetPanel region="rosters" fit="fill" toneOverride="pink">
-              <h3>LINEUP</h3>
-              <p className="font-market text-fg-default">Multiple rows will stretch this vertically</p>
-            </WidgetPanel>
-          </section>
-
-          <section role="region" aria-label={regionTitle("tickers")} className="col-span-2">
-            <WidgetPanel region="tickers" fit="fill" toneOverride="blue">
-              <h3>PLAYER 1</h3>
-              <p className="font-market text-fg-default">Score: 7,832</p>
-            </WidgetPanel>
-          </section>
-
-          <section role="region" aria-label={regionTitle("matchups")}>
-            <WidgetPanel region="matchups" fit="fill" toneOverride="white">
-              <h3>WHITE RAIL</h3>
-              <p className="font-market text-fg-default">Arcade Bold rail label.</p>
-            </WidgetPanel>
-          </section>
-        </PanelGrid>
       </Panel>
     </div>
   );
