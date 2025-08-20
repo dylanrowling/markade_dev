@@ -193,7 +193,7 @@ export default function UiPlayground() {
       {/* Triad Panels */}
       <div className="xl:col-span-2 space-y-3">
         <SectionHeader title="Color Panels" subtitle="Yellow / Blue / Pink rails" />
-        <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 auto-rows-auto sm:auto-rows-[140px] lg:grid-cols-2 xl:grid-cols-3 min-w-0 min-h-0 sm:h-[60vh] sm:overflow-auto pr-1">
           <ColorPanel tone="yellow" label="NEWS">
             <h3>MARKET WRAP</h3>
             <p className="font-market text-fg-default">Futures point higher ahead of CPI…, also let's test how the panels respond to long text</p>

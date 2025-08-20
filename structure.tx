@@ -1,0 +1,66 @@
+src
+├── App.css
+├── App.tsx
+├── assets
+│   ├── fonts
+│   │   ├── fonts.css
+│   │   ├── IBMPlexMono-Regular.ttf
+│   │   ├── IBMPlexMono-Regular.woff
+│   │   ├── IBMPlexMono-Regular.woff2
+│   │   ├── IBMPlexMono-Text.ttf
+│   │   ├── IBMPlexMono-Text.woff
+│   │   ├── IBMPlexMono-Text.woff2
+│   │   ├── Silkscreen-Bold.ttf
+│   │   ├── Silkscreen-Bold.woff2
+│   │   ├── Silkscreen-Regular.ttf
+│   │   └── Silkscreen-Regular.woff2
+│   └── react.svg
+├── components
+│   ├── ArcadeBanner.tsx
+│   ├── Button.tsx
+│   ├── ColorPanel.tsx
+│   ├── Navbar.tsx
+│   ├── Panel.tsx
+│   ├── ProtectedRoute.tsx
+│   ├── SectionHeader.tsx
+│   ├── Shell.tsx
+│   └── WidgetPanel.tsx
+├── data
+│   ├── sp500.sample.json
+│   └── universe.ts
+├── hooks
+│   ├── useAuth.ts
+│   └── useStocks.ts
+├── index.css
+├── layout
+│   └── PanelGrid.tsx
+├── main.tsx
+├── providers
+│   └── AuthProvider.tsx
+├── services
+│   ├── finhubClient.ts
+│   ├── firebase.ts
+│   └── stockClient.ts
+├── theme
+│   ├── semantics.ts
+│   └── tokens.css
+├── types
+│   └── leagues.ts
+├── types.ts
+├── views
+│   ├── CreateLeaguePage.tsx
+│   ├── Dashboard.tsx
+│   ├── GridPlayground.tsx
+│   ├── Landing.tsx
+│   ├── LeaguePage.tsx
+│   ├── LoginPage.tsx
+│   ├── Register.tsx
+│   └── UiPlayground.tsx
+├── vite-env.d.ts
+└── widgets
+    ├── LeagueListWidget.tsx
+    ├── MarketPingsWidget.tsx
+    ├── MatchupWidget.tsx
+    └── RosterWidget.tsx
+
+13 directories, 51 files
