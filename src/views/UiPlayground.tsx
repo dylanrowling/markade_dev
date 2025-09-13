@@ -5,11 +5,12 @@
  *  - 2025-08-12: Initial implementation (typography, buttons, panels, colors)
  *  - 2025-08-13: Align to semantic color tokens; remove legacy color names; runtime swatches from CSS vars; a11y + focus checks
  */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Panel from "../components/Panel";
 import SectionHeader from "../components/SectionHeader";
 import Button from "../components/Button";
 import ColorPanel from "../components/ColorPanel";
+import Icon, { availableIcons } from "../components/Icons";
 
 /* ---------- semantic-only button matrices ---------- */
 const BUTTON_VARIANTS = [
@@ -185,10 +186,144 @@ export default function UiPlayground() {
         </div>
       </Panel>
 
-      {/* Panels & Headers */}
+      {/* Form Inputs */}
       <Panel>
-        <SectionHeader title="Panel + SectionHeader" subtitle="Consistent framing" />
-        <p className="text-fg-subtle">Use this combo for every dashboard section.</p>
+        <SectionHeader title="Form Inputs" subtitle="Text fields, selects, toggles, pickers" />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Text */}
+          <div className="space-y-1">
+            <label className="text-sm text-fg-subtle" htmlFor="in-text">Text</label>
+            <input
+              id="in-text"
+              type="text"
+              placeholder="Ticker symbol (e.g., AAPL)"
+              className="w-full rounded-none bg-bg-panel text-fg-default placeholder-fg-subtle border border-divider px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] focus:border-[rgb(var(--focus-ring))]"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="space-y-1">
+            <label className="text-sm text-fg-subtle" htmlFor="in-password">Password</label>
+            <input
+              id="in-password"
+              type="password"
+              placeholder="••••••••"
+              className="w-full rounded-none bg-bg-panel text-fg-default placeholder-fg-subtle border border-divider px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] focus:border-[rgb(var(--focus-ring))]"
+            />
+          </div>
+
+          {/* Number */}
+          <div className="space-y-1">
+            <label className="text-sm text-fg-subtle" htmlFor="in-number">Number</label>
+            <input
+              id="in-number"
+              type="number"
+              defaultValue={10}
+              className="w-full rounded-none bg-bg-panel text-fg-default placeholder-fg-subtle border border-divider px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] focus:border-[rgb(var(--focus-ring))] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
+          </div>
+
+          {/* Select */}
+          <div className="space-y-1">
+            <label className="text-sm text-fg-subtle" htmlFor="in-select">Select</label>
+            <select
+              id="in-select"
+              className="w-full rounded-none bg-bg-panel text-fg-default border border-divider px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] focus:border-[rgb(var(--focus-ring))]"
+              defaultValue="weekly"
+            >
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </div>
+
+          {/* Date */}
+          <div className="space-y-1">
+            <label className="text-sm text-fg-subtle" htmlFor="in-date">Date</label>
+            <input
+              id="in-date"
+              type="date"
+              className="w-full rounded-none bg-bg-panel text-fg-default border border-divider px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] focus:border-[rgb(var(--focus-ring))]"
+            />
+          </div>
+
+          {/* Time */}
+          <div className="space-y-1">
+            <label className="text-sm text-fg-subtle" htmlFor="in-time">Time</label>
+            <input
+              id="in-time"
+              type="time"
+              className="w-full rounded-none bg-bg-panel text-fg-default border border-divider px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] focus:border-[rgb(var(--focus-ring))]"
+            />
+          </div>
+
+          {/* Datetime-local */}
+          <div className="space-y-1">
+            <label className="text-sm text-fg-subtle" htmlFor="in-dt">Datetime</label>
+            <input
+              id="in-dt"
+              type="datetime-local"
+              className="w-full rounded-none bg-bg-panel text-fg-default border border-divider px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] focus:border-[rgb(var(--focus-ring))]"
+            />
+          </div>
+
+          {/* Textarea */}
+          <div className="space-y-1 md:col-span-2">
+            <label className="text-sm text-fg-subtle" htmlFor="in-notes">Textarea</label>
+            <textarea
+              id="in-notes"
+              rows={3}
+              placeholder="Notes…"
+              className="w-full rounded-none bg-bg-panel text-fg-default placeholder-fg-subtle border border-divider px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] focus:border-[rgb(var(--focus-ring))]"
+            />
+          </div>
+
+          {/* Checkboxes & radios */}
+          <div className="space-y-2">
+            <div className="text-sm text-fg-subtle">Checkboxes</div>
+            <label className="inline-flex items-center gap-2 text-fg-default">
+              <input type="checkbox" className="accent-[rgb(var(--accent-pink))]" defaultChecked />
+              Email alerts
+            </label>
+            <label className="inline-flex items-center gap-2 text-fg-default">
+              <input type="checkbox" className="accent-[rgb(var(--accent-blue))]" />
+              Push pings
+            </label>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-sm text-fg-subtle">Radios</div>
+            <label className="inline-flex items-center gap-2 text-fg-default">
+              <input name="r1" type="radio" className="accent-[rgb(var(--accent-yellow))]" defaultChecked />
+              Public league
+            </label>
+            <label className="inline-flex items-center gap-2 text-fg-default">
+              <input name="r1" type="radio" className="accent-[rgb(var(--accent-pink))]" />
+              Private league
+            </label>
+          </div>
+
+          {/* Toggle */}
+          <div className="space-y-1">
+            <div className="text-sm text-fg-subtle">Toggle</div>
+            <button
+              type="button"
+              className="relative inline-flex h-6 w-11 items-center border border-divider bg-bg-panel focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))]"
+              onClick={(e) => e.currentTarget.classList.toggle('!bg-white')}
+              aria-pressed="false"
+            >
+              <span className="sr-only">Enable</span>
+              <span className="inline-block h-4 w-4 translate-x-1 bg-[rgb(var(--accent-blue))] transition-transform group-[:where(&.\!bg-white)]:translate-x-6" />
+            </button>
+          </div>
+
+          {/* Range */}
+          <div className="space-y-1 md:col-span-2">
+            <label className="text-sm text-fg-subtle" htmlFor="in-range">Range</label>
+            <input id="in-range" type="range" className="w-full" />
+          </div>
+        </div>
       </Panel>
 
       {/* Triad Panels */}
@@ -216,6 +351,28 @@ export default function UiPlayground() {
           </ColorPanel>
         </div>
       </div>
+
+      {/* Icons gallery */}
+      <Panel>
+        <SectionHeader title="Icons" subtitle="Inline SVGs (semantic color-aware)" />
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+          {availableIcons.length === 0 ? (
+            <div className="col-span-full text-sm text-fg-subtle">No icons registered.</div>
+          ) : (
+            availableIcons.map((n) => (
+              <div key={n} className="flex flex-col items-center gap-2 min-w-0">
+                <Icon
+                  name={n}
+                  className="w-6 h-6 text-fg-default hover:text-accent-pink transition-colors"
+                />
+                <div className="text-[10px] text-fg-subtle truncate max-w-[6rem]" title={n}>
+                  {n}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </Panel>
 
       {/* Color tokens — semantic & state */}
       <Panel>

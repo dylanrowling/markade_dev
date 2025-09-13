@@ -9,6 +9,7 @@ import Register from './views/Register';
 import Dashboard from './views/Dashboard';
 import CreateLeaguePage from './views/CreateLeaguePage';
 import LeaguePage from './views/LeaguePage';
+import Profile from './views/Profile';
 import UiPlayground from './views/UiPlayground';
 import GridPlayground from './views/GridPlayground';
 
@@ -26,6 +27,7 @@ function App() {
         {/* Private (guarded by ProtectedRoute) */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/create-league" element={<CreateLeaguePage />} />
           <Route path="/league/:leagueId/*" element={<LeaguePage />} />
           {showPlayground && (

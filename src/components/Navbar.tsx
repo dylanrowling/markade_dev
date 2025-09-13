@@ -13,21 +13,23 @@ export default function Navbar() {
     <nav className="w-full bg-panel border-b border-divider">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-3 sm:px-4 py-2">
         {/* Brand */}
-        <div
-          className="mk-arcade-display text-xl cursor-pointer text-accent-yellow"
+        <Button
+          as="button"
           onClick={() => navigate("/dashboard")}
-          aria-label="Go to Dashboard"
+          variant="arcadeyellow"
+          size="sm"
+          title="Dashboard"
         >
           MARKADE
-        </div>
+        </Button>
 
         {/* Dev-only links (gated by .env flag, same as Playground) */}
         {showPlayground && (
           <div className="flex items-center gap-3">
-            <Button as="button" onClick={() => navigate("/playground")} variant="subtle" size="sm">
+            <Button as="button" onClick={() => navigate("/playground")} variant="default" size="sm">
               Playground
             </Button>
-            <Button as="button" onClick={() => navigate("/grid-playground")} variant="subtle" size="sm">
+            <Button as="button" onClick={() => navigate("/grid-playground")} variant="default" size="sm">
               Grid Playground
             </Button>
           </div>
@@ -40,23 +42,22 @@ export default function Navbar() {
               {/* Keep this simple for now; swap to a menu later if needed */}
               <Button
                 as="button"
-                onClick={async () => {
-                  await logout();
-                  navigate("/");
+                onClick={() => {
+                  navigate("/profile");
                 }}
-                variant="subtle"
+                variant="default"
                 size="sm"
-                title="Log out"
+                title="Profile"
               >
                 {user.displayName || user.email}
               </Button>
             </>
           ) : (
             <>
-              <Button as="a" href="/login" variant="subtle" size="sm">
+              <Button as="a" href="/login" variant="default" size="sm">
                 Login
               </Button>
-              <Button as="a" href="/register" variant="subtle" size="sm">
+              <Button as="a" href="/register" variant="default" size="sm">
                 Register
               </Button>
             </>

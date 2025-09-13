@@ -56,7 +56,7 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
 
   const variantClasses: Record<string, string> = {
     default:
-      'bg-transparent border-divider text-fg-default hover:bg-panel/30 font-market',
+      'bg-transparent border-divider text-fg-default hover:bg-[rgb(var(--accent-yellow))]/20 hover:text-[rgb(var(--accent-yellow))] font-market transition-colors duration-200',
     subtle:
       'bg-transparent border-transparent text-fg-subtle hover:bg-panel/20 hover:text-fg-default font-market',
     arcadewhite:
