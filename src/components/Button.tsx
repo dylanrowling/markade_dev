@@ -4,6 +4,8 @@
 // 🕒 2025-08-12 — Add size prop (sm|md|lg), loading state, default type, a11y polish
 // 🕒 2025-08-12 — Forward ref, pointer-events when disabled, DRY rounded
 // 🕒 2025-08-13 — Modernized with semantic tokens, cleaned variants, single wrapper, cx helper
+// 🕒 2025-08-21 — Collapse to single 'arcade' variant (md only), simple invert hover; remove arcade2
+// 🕒 2025-09-12 — Make 'arcadewhite' the default; neutralize base focus ring; normalize non-arcade variants
 
 import React from 'react';
 
@@ -12,7 +14,7 @@ function cx(...classes: (string | false | null | undefined)[]) {
 }
 
 type CommonButtonProps = {
-  variant?: 'default' | 'subtle' | 'arcade1' | 'arcade2' | 'confirm' | 'cancel' | 'back';
+  variant?: 'default' | 'subtle' | 'arcadewhite' | 'arcadeyellow' | 'arcadeblue' | 'arcadepink' | 'confirm' | 'cancel' | 'back';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
   children: React.ReactNode;
@@ -36,7 +38,7 @@ type ButtonProps = ButtonNativeProps | ButtonLinkProps;
 
 const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(function Button(
   {
-    variant = 'default',
+    variant = 'arcadewhite',
     size = 'md',
     isLoading = false,
     children,
@@ -49,28 +51,28 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
   ref
 ) {
   const baseStyles = cx(
-    'inline-flex items-center justify-center gap-2 select-none rounded-md font-semibold transition-colors duration-150 ease-in-out',
-    'border',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent-default',
-    'disabled:opacity-60 disabled:cursor-not-allowed',
-    'tap-highlight-transparent touch-manipulation',
+    'inline-flex items-center justify-center gap-2 select-none rounded font-semibold transition-colors duration-150 ease-in-out border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[rgb(var(--focus-ring))] disabled:opacity-60 disabled:cursor-not-allowed tap-highlight-transparent touch-manipulation relative overflow-hidden group',
   );
 
   const variantClasses: Record<string, string> = {
     default:
-      'bg-transparent border-divider text-fg-default hover:bg-state-hover hover:text-fg-default focus-visible:bg-state-focus active:bg-state-active active:text-fg-default font-market',
+      'bg-transparent border-divider text-fg-default hover:bg-panel/30 font-market',
     subtle:
-      'bg-transparent border-transparent text-fg-muted hover:bg-state-hover hover:text-fg-default focus-visible:bg-state-focus active:bg-state-active active:text-fg-default font-market',
-    arcade1:
-      'relative overflow-hidden bg-transparent border-2 border-accent-yellow text-accent-yellow font-arcade rounded-none hover:text-black focus-visible:text-black before:content-[\'\'] before:absolute before:inset-[3px] before:border-2 before:border-fg-default before:rounded-[3px] before:opacity-0 hover:before:opacity-100 focus-visible:before:opacity-100 before:pointer-events-none after:content-[\'\'] after:absolute after:inset-[5px] after:bg-fg-default after:opacity-0 hover:after:opacity-100 focus-visible:after:opacity-100 after:pointer-events-none transition-[color,opacity] duration-700 hover:duration-0',
-    arcade2:
-      'relative bg-transparent border-divider text-accent-subtle font-arcade-bold hover:bg-state-hover hover:text-fg-default focus-visible:bg-state-focus active:bg-state-active active:text-fg-default before:content-[\'\'] before:absolute before:inset-[3px] before:border-2 before:border-accent-subtle before:opacity-0 hover:before:opacity-100 focus-visible:before:opacity-100 transition-opacity duration-700 hover:duration-0',
+      'bg-transparent border-transparent text-fg-subtle hover:bg-panel/20 hover:text-fg-default font-market',
+    arcadewhite:
+      "rounded-none bg-app border-2 border-white text-white font-arcade focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black hover:bg-white hover:text-[rgb(var(--bg-app))] before:content-[''] before:absolute before:inset-1 before:border before:border-black before:opacity-0 before:transition-opacity before:duration-700 before:ease-out active:before:opacity-100 transition-[background-color,color,border-color] duration-700 hover:duration-150",
+    arcadeyellow:
+      "rounded-none bg-app border-2 border-[rgb(var(--accent-yellow))] text-[rgb(var(--accent-yellow))] font-arcade focus-visible:ring-[rgb(var(--accent-yellow))] focus-visible:ring-offset-2 focus-visible:ring-offset-black hover:bg-[rgb(var(--accent-yellow))] hover:text-[rgb(var(--bg-app))] before:content-[''] before:absolute before:inset-1 before:border before:border-black before:opacity-0 before:transition-opacity before:duration-700 before:ease-out active:before:opacity-100 transition-[background-color,color,border-color] duration-700 hover:duration-150",
+    arcadeblue:
+      "rounded-none bg-app border-2 border-[rgb(var(--accent-blue))] text-[rgb(var(--accent-blue))] font-arcade focus-visible:ring-[rgb(var(--accent-blue))] focus-visible:ring-offset-2 focus-visible:ring-offset-black hover:bg-[rgb(var(--accent-blue))] hover:text-[rgb(var(--bg-app))] before:content-[''] before:absolute before:inset-1 before:border before:border-black before:opacity-0 before:transition-opacity before:duration-700 before:ease-out active:before:opacity-100 transition-[background-color,color,border-color] duration-700 hover:duration-150",
+    arcadepink:
+      "rounded-none bg-app border-2 border-[rgb(var(--accent-pink))] text-[rgb(var(--accent-pink))] font-arcade focus-visible:ring-[rgb(var(--accent-pink))] focus-visible:ring-offset-2 focus-visible:ring-offset-black hover:bg-[rgb(var(--accent-pink))] hover:text-[rgb(var(--bg-app))] before:content-[''] before:absolute before:inset-1 before:border before:border-black before:opacity-0 before:transition-opacity before:duration-700 before:ease-out active:before:opacity-100 transition-[background-color,color,border-color] duration-700 hover:duration-150",
     confirm:
-      'bg-accent-default border-accent-default text-fg-onAccent hover:bg-accent-hover hover:border-accent-hover focus-visible:bg-accent-focus focus-visible:border-accent-focus active:bg-accent-active active:border-accent-active font-market',
+      "border border-transparent bg-[rgb(var(--state-success))] text-[rgb(var(--bg-app))] hover:bg-[rgb(var(--state-success))]/90 font-market",
     cancel:
-      'bg-state-danger border-state-danger text-fg-onDanger hover:bg-state-danger-hover hover:border-state-danger-hover focus-visible:bg-state-danger-focus focus-visible:border-state-danger-focus active:bg-state-danger-active active:border-state-danger-active font-market',
+      "border border-transparent bg-[rgb(var(--state-error))] text-[rgb(var(--bg-app))] hover:bg-[rgb(var(--state-error))]/90 font-market",
     back:
-      'bg-transparent border-transparent text-fg-muted hover:bg-state-hover hover:text-fg-default focus-visible:bg-state-focus active:bg-state-active active:text-fg-default font-market',
+      'bg-transparent border-divider text-fg-default hover:bg-panel/20 font-market',
   };
 
   const sizeClasses: Record<string, string> = {
@@ -79,12 +81,15 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
     lg: 'text-lg px-5 py-3',
   };
 
+  const isArcade = (variant as string).startsWith('arcade');
+  const appliedSizeClass = isArcade ? sizeClasses.md : sizeClasses[size];
+
   const isDisabled = disabled || isLoading;
   const maybeBtnType = (props as React.ButtonHTMLAttributes<HTMLButtonElement>).type;
   const btnType: React.ButtonHTMLAttributes<HTMLButtonElement>['type'] = maybeBtnType ?? 'button';
 
   const sharedProps = {
-    className: cx(baseStyles, variantClasses[variant] || variantClasses.default, sizeClasses[size], className),
+    className: cx(baseStyles, variantClasses[variant] || variantClasses.default, appliedSizeClass, className),
     'aria-disabled': isDisabled || undefined,
     ref,
     ...props,
@@ -104,7 +109,7 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
             <path className="opacity-75" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
           </svg>
         )}
-        <span className="relative z-10">{children}</span>
+        <span className="relative z-10 transition-transform duration-100 ease-out group-active:translate-x-[1px] group-active:translate-y-[1px]">{children}</span>
       </a>
     );
   }
@@ -122,7 +127,7 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
           <path className="opacity-75" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
         </svg>
       )}
-      <span className="relative z-10">{children}</span>
+      <span className="relative z-10 transition-transform duration-100 ease-out group-active:translate-x-[1px] group-active:translate-y-[1px]">{children}</span>
     </button>
   );
 });

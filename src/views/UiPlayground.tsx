@@ -13,10 +13,11 @@ import ColorPanel from "../components/ColorPanel";
 
 /* ---------- semantic-only button matrices ---------- */
 const BUTTON_VARIANTS = [
-  { heading: "Arcade Variants", items: ["arcade1", "arcade2"] as const },
+  { heading: "Arcade (White)", items: ["arcadewhite"] as const },
+  { heading: "Arcade (Colors)", items: ["arcadeyellow", "arcadeblue", "arcadepink"] as const },
   { heading: "Neutral Variants", items: ["default", "subtle"] as const },
 ] as const;
-const SIZES = ["sm", "md", "lg"] as const;
+const SIZES = ["md"] as const;
 
 /* ---------- token-driven color swatches (read from CSS vars at runtime) ---------- */
 const SEMANTIC_VARS = [
@@ -193,7 +194,7 @@ export default function UiPlayground() {
       {/* Triad Panels */}
       <div className="xl:col-span-2 space-y-3">
         <SectionHeader title="Color Panels" subtitle="Yellow / Blue / Pink rails" />
-        <div className="grid gap-4 auto-rows-auto sm:auto-rows-[140px] lg:grid-cols-2 xl:grid-cols-3 min-w-0 min-h-0 sm:h-[60vh] sm:overflow-auto pr-1">
+        <div className="grid gap-4 auto-rows-[minmax(12rem,auto)] lg:grid-cols-2 xl:grid-cols-3 min-w-0 place-items-stretch">
           <ColorPanel tone="yellow" label="NEWS">
             <h3>MARKET WRAP</h3>
             <p className="font-market text-fg-default">Futures point higher ahead of CPI…, also let's test how the panels respond to long text</p>
