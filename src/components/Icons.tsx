@@ -7,20 +7,25 @@
  // Vite will inline the raw SVG text for all files in /src/icons
 const files = import.meta.glob("../assets/icons/*.svg", { as: "raw", eager: true }) as Record<string, string>;
 
-// name -> sanitized SVG string
 const registry: Record<string, string> = {};
 for (const [path, raw] of Object.entries(files)) {
   const name = path.split("/").pop()!.replace(".svg", "");
-  const svg = (raw || "")
+  const trimmed = (raw || "").trim();
+  if (!trimmed) continue; // skip empty SVGs
+
+  const svg = trimmed
     // remove xml/doctype noise
     .replace(/<\?xml[\s\S]*?\?>/g, "")
     .replace(/<!DOCTYPE[\s\S]*?>/g, "")
     // let CSS control size (w-*, h-*)
     .replace(/\swidth="[^"]*"/g, "")
     .replace(/\sheight="[^"]*"/g, "")
-    // make fills/strokes inherit from currentColor (unless explicitly 'none')
-    .replace(/fill="(?!none)[^"]*"/g, 'fill="currentColor"')
-    .replace(/stroke="[^"]*"/g, 'stroke="currentColor"');
+    // ensure crisp, non-antialiased edges (8-bit vibe)
+    .replace(/<svg(\s+)/i, '<svg$1shape-rendering="crispEdges" ')
+    // make fills/strokes inherit from CSS color (preserve explicit none)
+    .replace(/fill="(?!none)[^"]*"/gi, 'fill="currentColor"')
+    .replace(/stroke="(?!none)[^"]*"/gi, 'stroke="currentColor"');
+
   registry[name] = svg;
 }
 

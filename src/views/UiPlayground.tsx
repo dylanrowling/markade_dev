@@ -83,6 +83,7 @@ function Swatch({ varName }: { varName: string }) {
 }
 
 export default function UiPlayground() {
+  const [toggleEnabled, setToggleEnabled] = useState(false);
   return (
     <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
       {/* Typography */}
@@ -309,12 +310,14 @@ export default function UiPlayground() {
             <div className="text-sm text-fg-subtle">Toggle</div>
             <button
               type="button"
-              className="relative inline-flex h-6 w-11 items-center border border-divider bg-bg-panel focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))]"
-              onClick={(e) => e.currentTarget.classList.toggle('!bg-white')}
-              aria-pressed="false"
+              aria-pressed={toggleEnabled}
+              onClick={() => setToggleEnabled((v) => !v)}
+              className={`relative inline-flex h-6 w-11 items-center border border-divider focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] ${toggleEnabled ? 'bg-white' : 'bg-bg-panel'}`}
             >
               <span className="sr-only">Enable</span>
-              <span className="inline-block h-4 w-4 translate-x-1 bg-[rgb(var(--accent-blue))] transition-transform group-[:where(&.\!bg-white)]:translate-x-6" />
+              <span
+                className={`inline-block h-4 w-4 bg-[rgb(var(--accent-blue))] transition-transform ${toggleEnabled ? 'translate-x-6' : 'translate-x-1'}`}
+              />
             </button>
           </div>
 
@@ -330,25 +333,33 @@ export default function UiPlayground() {
       <div className="xl:col-span-2 space-y-3">
         <SectionHeader title="Color Panels" subtitle="Yellow / Blue / Pink rails" />
         <div className="grid gap-4 auto-rows-[minmax(12rem,auto)] lg:grid-cols-2 xl:grid-cols-3 min-w-0 place-items-stretch">
-          <ColorPanel tone="yellow" label="NEWS">
-            <h3>MARKET WRAP</h3>
-            <p className="font-market text-fg-default">Futures point higher ahead of CPI…, also let's test how the panels respond to long text</p>
-          </ColorPanel>
+          <div className="min-w-0">
+            <ColorPanel tone="yellow" label="NEWS">
+              <h3>MARKET WRAP</h3>
+              <p className="font-market text-fg-default">Futures point higher ahead of CPI…, also let's test how the panels respond to long text</p>
+            </ColorPanel>
+          </div>
 
-          <ColorPanel tone="blue" label="PRICES">
-            <h3>PLAYER 1</h3>
-            <p className="font-market text-fg-default">Score: 7,832</p>
-          </ColorPanel>
+          <div className="min-w-0">
+            <ColorPanel tone="blue" label="PRICES">
+              <h3>PLAYER 1</h3>
+              <p className="font-market text-fg-default">Score: 7,832</p>
+            </ColorPanel>
+          </div>
 
-          <ColorPanel tone="pink" label="ROSTER">
-            <h3>LINEUP</h3>
-            <p className="font-market text-fg-default">Draft opens Friday</p>
-          </ColorPanel>
+          <div className="min-w-0">
+            <ColorPanel tone="pink" label="ROSTER">
+              <h3>LINEUP</h3>
+              <p className="font-market text-fg-default">Draft opens Friday</p>
+            </ColorPanel>
+          </div>
 
-          <ColorPanel tone="white" label="RAIL HEIGHT TEST">
-            <h3>RAIL HEIGHT TEST</h3>
-            <p className="font-market text-fg-default">Arcade Bold rail label.</p>
-          </ColorPanel>
+          <div className="min-w-0">
+            <ColorPanel tone="white" label="RAIL HEIGHT TEST">
+              <h3>RAIL HEIGHT TEST</h3>
+              <p className="font-market text-fg-default">Arcade Bold rail label.</p>
+            </ColorPanel>
+          </div>
         </div>
       </div>
 
@@ -363,7 +374,7 @@ export default function UiPlayground() {
               <div key={n} className="flex flex-col items-center gap-2 min-w-0">
                 <Icon
                   name={n}
-                  className="w-6 h-6 text-fg-default hover:text-accent-pink transition-colors"
+                  className="inline-block leading-none w-6 h-6 pixelated-svg text-fg-default hover:text-accent-pink transition-colors"
                 />
                 <div className="text-[10px] text-fg-subtle truncate max-w-[6rem]" title={n}>
                   {n}
